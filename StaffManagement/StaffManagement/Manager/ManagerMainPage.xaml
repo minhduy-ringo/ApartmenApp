@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.Manager.Page1">
+    <ContentPage.Content>
+        <StackLayout Margin="10"
+                     BackgroundColor="Transparent">
+            <Grid ColumnSpacing="0"
+                  BackgroundColor="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"/>
+                </Grid.RowDefinitions>
+                <Button Text="Menu"
+                        Clicked="Menu_Clicked"
+                        BackgroundColor="Transparent"
+                        BorderWidth="0"
+                        BorderColor="Transparent"
+                        Grid.ColumnSpan="1"/>
+                <Label Grid.Column="1"
+                       Text="Main Page"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       BackgroundColor="Transparent"
+                       FontSize="Title"
+                       Grid.ColumnSpan="6"
+                       TextColor="Gray"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

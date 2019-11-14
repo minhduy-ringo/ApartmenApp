@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.MainPage">
+
+    <StackLayout Spacing="20"
+                 Margin="20,1,20,1"
+                 VerticalOptions="Center">
+        <Label Text="Meo Apartment" 
+               HorizontalOptions="Center"
+               FontSize="Title"/>
+        <Entry Placeholder="Password"
+               IsPassword="True"
+               IsSpellCheckEnabled="False"
+               IsTextPredictionEnabled="False"/>
+        <Entry Placeholder="User name"
+               IsSpellCheckEnabled="False"
+               IsTextPredictionEnabled="False"/>
+        <Button Text="Log In"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Clicked="Login_Clicked"/>
+    </StackLayout>
+
+</ContentPage>
