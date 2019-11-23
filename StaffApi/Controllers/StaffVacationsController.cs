@@ -11,41 +11,41 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
-using ComplexApi.Models;
+using StaffApi.Models;
 
-namespace ComplexApi.Controllers
+namespace StaffApi.Controllers
 {
     /*
     The WebApiConfig class may require additional changes to add a route for this controller. Merge these statements into the Register method of the WebApiConfig class as applicable. Note that OData URLs are case sensitive.
 
     using System.Web.Http.OData.Builder;
     using System.Web.Http.OData.Extensions;
-    using ComplexApi.Models;
+    using StaffApi.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Building>("Buildings");
-    builder.EntitySet<Complex>("Complexes"); 
+    builder.EntitySet<StaffVacation>("StaffVacations");
+    builder.EntitySet<Staff>("Staffs"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-    public class BuildingsController : ODataController
+    public class StaffVacationsController : ODataController
     {
-        private ComplexContext db = new ComplexContext();
+        private StaffContext db = new StaffContext();
 
-        // GET: odata/Buildings
+        // GET: odata/StaffVacations
         [EnableQuery]
-        public IQueryable<Building> GetBuildings()
+        public IQueryable<StaffVacation> GetStaffVacations()
         {
-            return db.Buildings;
+            return db.StaffVacations;
         }
 
-        // GET: odata/Buildings(5)
+        // GET: odata/StaffVacations(5)
         [EnableQuery]
-        public SingleResult<Building> GetBuilding([FromODataUri] short key)
+        public SingleResult<StaffVacation> GetStaffVacation([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Buildings.Where(building => building.complexId == key));
+            return SingleResult.Create(db.StaffVacations.Where(staffVacation => staffVacation.staffVacationId == key));
         }
 
-        // PUT: odata/Buildings(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] short key, Delta<Building> patch)
+        // PUT: odata/StaffVacations(5)
+        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<StaffVacation> patch)
         {
             Validate(patch.GetEntity());
 
@@ -54,13 +54,13 @@ namespace ComplexApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            Building building = await db.Buildings.FindAsync(key);
-            if (building == null)
+            StaffVacation staffVacation = await db.StaffVacations.FindAsync(key);
+            if (staffVacation == null)
             {
                 return NotFound();
             }
 
-            patch.Put(building);
+            patch.Put(staffVacation);
 
             try
             {
@@ -68,7 +68,7 @@ namespace ComplexApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BuildingExists(key))
+                if (!StaffVacationExists(key))
                 {
                     return NotFound();
                 }
@@ -78,41 +78,26 @@ namespace ComplexApi.Controllers
                 }
             }
 
-            return Updated(building);
+            return Updated(staffVacation);
         }
 
-        // POST: odata/Buildings
-        public async Task<IHttpActionResult> Post(Building building)
+        // POST: odata/StaffVacations
+        public async Task<IHttpActionResult> Post(StaffVacation staffVacation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Buildings.Add(building);
+            db.StaffVacations.Add(staffVacation);
+            await db.SaveChangesAsync();
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (BuildingExists(building.complexId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Created(building);
+            return Created(staffVacation);
         }
 
-        // PATCH: odata/Buildings(5)
+        // PATCH: odata/StaffVacations(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] short key, Delta<Building> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<StaffVacation> patch)
         {
             Validate(patch.GetEntity());
 
@@ -121,13 +106,13 @@ namespace ComplexApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            Building building = await db.Buildings.FindAsync(key);
-            if (building == null)
+            StaffVacation staffVacation = await db.StaffVacations.FindAsync(key);
+            if (staffVacation == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(building);
+            patch.Patch(staffVacation);
 
             try
             {
@@ -135,7 +120,7 @@ namespace ComplexApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BuildingExists(key))
+                if (!StaffVacationExists(key))
                 {
                     return NotFound();
                 }
@@ -145,29 +130,29 @@ namespace ComplexApi.Controllers
                 }
             }
 
-            return Updated(building);
+            return Updated(staffVacation);
         }
 
-        // DELETE: odata/Buildings(5)
-        public async Task<IHttpActionResult> Delete([FromODataUri] short key)
+        // DELETE: odata/StaffVacations(5)
+        public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Building building = await db.Buildings.FindAsync(key);
-            if (building == null)
+            StaffVacation staffVacation = await db.StaffVacations.FindAsync(key);
+            if (staffVacation == null)
             {
                 return NotFound();
             }
 
-            db.Buildings.Remove(building);
+            db.StaffVacations.Remove(staffVacation);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: odata/Buildings(5)/Complex
+        // GET: odata/StaffVacations(5)/Staff
         [EnableQuery]
-        public SingleResult<Complex> GetComplex([FromODataUri] short key)
+        public SingleResult<Staff> GetStaff([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Buildings.Where(m => m.complexId == key).Select(m => m.Complex));
+            return SingleResult.Create(db.StaffVacations.Where(m => m.staffVacationId == key).Select(m => m.Staff));
         }
 
         protected override void Dispose(bool disposing)
@@ -179,9 +164,9 @@ namespace ComplexApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool BuildingExists(short key)
+        private bool StaffVacationExists(int key)
         {
-            return db.Buildings.Count(e => e.complexId == key) > 0;
+            return db.StaffVacations.Count(e => e.staffVacationId == key) > 0;
         }
     }
 }

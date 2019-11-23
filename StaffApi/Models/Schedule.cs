@@ -7,20 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComplexApi.Models
+namespace StaffApi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Building
+    public partial class Schedule
     {
-        public short complexId { get; set; }
-        public short buildingNum { get; set; }
-        public Nullable<short> numOfStaff { get; set; }
-        public Nullable<int> numOfTenant { get; set; }
-        public Nullable<int> numOfDepartment { get; set; }
-        public Nullable<int> availApartment { get; set; }
+        public int scheduleId { get; set; }
+        public int staffId { get; set; }
+        public Nullable<System.DateTime> workDate { get; set; }
+        public Nullable<System.TimeSpan> startWorkHour { get; set; }
+        public Nullable<System.TimeSpan> endWorkHour { get; set; }
+        public Nullable<bool> isHoliday { get; set; }
+        public Nullable<bool> isWeekend { get; set; }
     
-        public virtual Complex Complex { get; set; }
+        public virtual Staff Staff { get; set; }
     }
 }

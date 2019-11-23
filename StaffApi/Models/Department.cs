@@ -7,27 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComplexApi.Models
+namespace StaffApi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Complex
+    public partial class Department
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Complex()
+        public Department()
         {
-            this.Buildings = new HashSet<Building>();
+            this.Staffs = new HashSet<Staff>();
         }
     
-        public short complexId { get; set; }
+        public short departmentId { get; set; }
         public string name { get; set; }
-        public string address { get; set; }
-        public string city { get; set; }
-        public Nullable<short> numOfBuilding { get; set; }
-        public string mainPhone { get; set; }
+        public Nullable<int> managerId { get; set; }
     
+        public virtual Staff Staff { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Building> Buildings { get; set; }
+        public virtual ICollection<Staff> Staffs { get; set; }
     }
 }

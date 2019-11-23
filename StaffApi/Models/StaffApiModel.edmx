@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ApartmentManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="departmentId" />
+          </Key>
+          <Property Name="departmentId" Type="smallint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="managerId" Type="int" />
+        </EntityType>
+        <EntityType Name="LeaveRequest">
+          <Key>
+            <PropertyRef Name="leaveRequestId" />
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="leaveRequestId" Type="int" Nullable="false" />
+          <Property Name="staffId" Type="int" Nullable="false" />
+          <Property Name="leaveDate" Type="date" />
+          <Property Name="type" Type="nvarchar" MaxLength="20" />
+          <Property Name="confirmStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="leaveReason" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="scheduleId" />
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="scheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="staffId" Type="int" Nullable="false" />
+          <Property Name="workDate" Type="date" />
+          <Property Name="startWorkHour" Type="time" Precision="0" />
+          <Property Name="endWorkHour" Type="time" Precision="0" />
+          <Property Name="isHoliday" Type="bit" />
+          <Property Name="isWeekend" Type="bit" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="staffId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="birthday" Type="date" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="15" />
+          <Property Name="departmentId" Type="smallint" />
+          <Property Name="complexId" Type="smallint" />
+          <Property Name="joinDate" Type="date" />
+          <Property Name="leaveDate" Type="date" />
+        </EntityType>
+        <EntityType Name="StaffVacation">
+          <Key>
+            <PropertyRef Name="staffVacationId" />
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="staffVacationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="staffId" Type="int" Nullable="false" />
+          <Property Name="maxVacationDay" Type="tinyint" />
+          <Property Name="usedDay" Type="tinyint" />
+        </EntityType>
+        <Association Name="FK_Department_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="managerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveRequest_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="LeaveRequest">
+              <PropertyRef Name="staffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="staffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="departmentId" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="departmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StaffVacation_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="StaffVacation" Type="Self.StaffVacation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="StaffVacation">
+              <PropertyRef Name="staffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApartmentManagementModelStoreContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveRequest" EntityType="Self.LeaveRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaffVacation" EntityType="Self.StaffVacation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Department_Staff" Association="Self.FK_Department_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveRequest_Staff" Association="Self.FK_LeaveRequest_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="LeaveRequest" EntitySet="LeaveRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Staff" Association="Self.FK_Schedule_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Department" Association="Self.FK_Staff_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StaffVacation_Staff" Association="Self.FK_StaffVacation_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="StaffVacation" EntitySet="StaffVacation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ApartmentManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="departmentId" />
+          </Key>
+          <Property Name="departmentId" Type="Int16" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="managerId" Type="Int32" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Department_Staff" FromRole="Department" ToRole="Staff" />
+          <NavigationProperty Name="Staffs" Relationship="Self.FK_Staff_Department" FromRole="Department" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="LeaveRequest">
+          <Key>
+            <PropertyRef Name="leaveRequestId" />
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="leaveRequestId" Type="Int32" Nullable="false" />
+          <Property Name="staffId" Type="Int32" Nullable="false" />
+          <Property Name="leaveDate" Type="DateTime" Precision="0" />
+          <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="confirmStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="leaveReason" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_LeaveRequest_Staff" FromRole="LeaveRequest" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="staffId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="departmentId" Type="Int16" />
+          <Property Name="complexId" Type="Int16" />
+          <Property Name="joinDate" Type="DateTime" Precision="0" />
+          <Property Name="leaveDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Department_Staff" FromRole="Staff" ToRole="Department" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Staff_Department" FromRole="Staff" ToRole="Department" />
+          <NavigationProperty Name="LeaveRequests" Relationship="Self.FK_LeaveRequest_Staff" FromRole="Staff" ToRole="LeaveRequest" />
+          <NavigationProperty Name="StaffVacations" Relationship="Self.FK_StaffVacation_Staff" FromRole="Staff" ToRole="StaffVacation" />
+          <NavigationProperty Name="Schedules" Relationship="ApartmentManagementModel.FK_Schedule_Staff" FromRole="Staff" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="StaffVacation">
+          <Key>
+            <PropertyRef Name="staffVacationId" />
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="staffVacationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="staffId" Type="Int32" Nullable="false" />
+          <Property Name="maxVacationDay" Type="Byte" />
+          <Property Name="usedDay" Type="Byte" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_StaffVacation_Staff" FromRole="StaffVacation" ToRole="Staff" />
+        </EntityType>
+        <Association Name="FK_Department_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="managerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="departmentId" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="departmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveRequest_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="LeaveRequest">
+              <PropertyRef Name="staffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StaffVacation_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="StaffVacation" Type="Self.StaffVacation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="StaffVacation">
+              <PropertyRef Name="staffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StaffContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="LeaveRequests" EntityType="Self.LeaveRequest" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="StaffVacations" EntityType="Self.StaffVacation" />
+          <AssociationSet Name="FK_Department_Staff" Association="Self.FK_Department_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Department" Association="Self.FK_Staff_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveRequest_Staff" Association="Self.FK_LeaveRequest_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="LeaveRequest" EntitySet="LeaveRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StaffVacation_Staff" Association="Self.FK_StaffVacation_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="StaffVacation" EntitySet="StaffVacations" />
+          </AssociationSet>
+          <EntitySet Name="Schedules" EntityType="ApartmentManagementModel.Schedule" />
+          <AssociationSet Name="FK_Schedule_Staff" Association="ApartmentManagementModel.FK_Schedule_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="scheduleId" />
+            <PropertyRef Name="staffId" />
+          </Key>
+          <Property Name="scheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="staffId" Type="Int32" Nullable="false" />
+          <Property Name="workDate" Type="DateTime" Precision="0" />
+          <Property Name="startWorkHour" Type="Time" Precision="0" />
+          <Property Name="endWorkHour" Type="Time" Precision="0" />
+          <Property Name="isHoliday" Type="Boolean" />
+          <Property Name="isWeekend" Type="Boolean" />
+          <NavigationProperty Name="Staff" Relationship="ApartmentManagementModel.FK_Schedule_Staff" FromRole="Schedule" ToRole="Staff" />
+        </EntityType>
+        <Association Name="FK_Schedule_Staff">
+          <End Type="ApartmentManagementModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="ApartmentManagementModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="staffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ApartmentManagementModelStoreContainer" CdmEntityContainer="StaffContext">
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ApartmentManagementModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="departmentId" ColumnName="departmentId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="managerId" ColumnName="managerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveRequests">
+            <EntityTypeMapping TypeName="ApartmentManagementModel.LeaveRequest">
+              <MappingFragment StoreEntitySet="LeaveRequest">
+                <ScalarProperty Name="leaveRequestId" ColumnName="leaveRequestId" />
+                <ScalarProperty Name="staffId" ColumnName="staffId" />
+                <ScalarProperty Name="leaveDate" ColumnName="leaveDate" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="confirmStatus" ColumnName="confirmStatus" />
+                <ScalarProperty Name="leaveReason" ColumnName="leaveReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="ApartmentManagementModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="staffId" ColumnName="staffId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="departmentId" ColumnName="departmentId" />
+                <ScalarProperty Name="complexId" ColumnName="complexId" />
+                <ScalarProperty Name="joinDate" ColumnName="joinDate" />
+                <ScalarProperty Name="leaveDate" ColumnName="leaveDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffVacations">
+            <EntityTypeMapping TypeName="ApartmentManagementModel.StaffVacation">
+              <MappingFragment StoreEntitySet="StaffVacation">
+                <ScalarProperty Name="staffVacationId" ColumnName="staffVacationId" />
+                <ScalarProperty Name="staffId" ColumnName="staffId" />
+                <ScalarProperty Name="maxVacationDay" ColumnName="maxVacationDay" />
+                <ScalarProperty Name="usedDay" ColumnName="usedDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="ApartmentManagementModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="isWeekend" ColumnName="isWeekend" />
+                <ScalarProperty Name="isHoliday" ColumnName="isHoliday" />
+                <ScalarProperty Name="endWorkHour" ColumnName="endWorkHour" />
+                <ScalarProperty Name="startWorkHour" ColumnName="startWorkHour" />
+                <ScalarProperty Name="workDate" ColumnName="workDate" />
+                <ScalarProperty Name="staffId" ColumnName="staffId" />
+                <ScalarProperty Name="scheduleId" ColumnName="scheduleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

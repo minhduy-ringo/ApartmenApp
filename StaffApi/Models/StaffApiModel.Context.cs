@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComplexApi.Models
+namespace StaffApi.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ComplexContext : DbContext
+    public partial class StaffContext : DbContext
     {
-        public ComplexContext()
-            : base("name=ComplexContext")
+        public StaffContext()
+            : base("name=StaffContext")
         {
         }
     
@@ -25,7 +25,10 @@ namespace ComplexApi.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Building> Buildings { get; set; }
-        public virtual DbSet<Complex> Complexes { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<StaffVacation> StaffVacations { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
     }
 }

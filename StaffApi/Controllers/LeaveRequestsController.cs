@@ -11,41 +11,41 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
-using ComplexApi.Models;
+using StaffApi.Models;
 
-namespace ComplexApi.Controllers
+namespace StaffApi.Controllers
 {
     /*
     The WebApiConfig class may require additional changes to add a route for this controller. Merge these statements into the Register method of the WebApiConfig class as applicable. Note that OData URLs are case sensitive.
 
     using System.Web.Http.OData.Builder;
     using System.Web.Http.OData.Extensions;
-    using ComplexApi.Models;
+    using StaffApi.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Complex>("Complexes");
-    builder.EntitySet<Building>("Buildings"); 
+    builder.EntitySet<LeaveRequest>("LeaveRequests");
+    builder.EntitySet<Staff>("Staffs"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-    public class ComplexesController : ODataController
+    public class LeaveRequestsController : ODataController
     {
-        private ComplexContext db = new ComplexContext();
+        private StaffContext db = new StaffContext();
 
-        // GET: odata/Complexes
+        // GET: odata/LeaveRequests
         [EnableQuery]
-        public IQueryable<Complex> GetComplexes()
+        public IQueryable<LeaveRequest> GetLeaveRequests()
         {
-            return db.Complexes;
+            return db.LeaveRequests;
         }
 
-        // GET: odata/Complexes(5)
+        // GET: odata/LeaveRequests(5)
         [EnableQuery]
-        public SingleResult<Complex> GetComplex([FromODataUri] short key)
+        public SingleResult<LeaveRequest> GetLeaveRequest([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Complexes.Where(complex => complex.complexId == key));
+            return SingleResult.Create(db.LeaveRequests.Where(leaveRequest => leaveRequest.leaveRequestId == key));
         }
 
-        // PUT: odata/Complexes(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] short key, Delta<Complex> patch)
+        // PUT: odata/LeaveRequests(5)
+        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<LeaveRequest> patch)
         {
             Validate(patch.GetEntity());
 
@@ -54,13 +54,13 @@ namespace ComplexApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            Complex complex = await db.Complexes.FindAsync(key);
-            if (complex == null)
+            LeaveRequest leaveRequest = await db.LeaveRequests.FindAsync(key);
+            if (leaveRequest == null)
             {
                 return NotFound();
             }
 
-            patch.Put(complex);
+            patch.Put(leaveRequest);
 
             try
             {
@@ -68,7 +68,7 @@ namespace ComplexApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ComplexExists(key))
+                if (!LeaveRequestExists(key))
                 {
                     return NotFound();
                 }
@@ -78,26 +78,41 @@ namespace ComplexApi.Controllers
                 }
             }
 
-            return Updated(complex);
+            return Updated(leaveRequest);
         }
 
-        // POST: odata/Complexes
-        public async Task<IHttpActionResult> Post(Complex complex)
+        // POST: odata/LeaveRequests
+        public async Task<IHttpActionResult> Post(LeaveRequest leaveRequest)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Complexes.Add(complex);
-            await db.SaveChangesAsync();
+            db.LeaveRequests.Add(leaveRequest);
 
-            return Created(complex);
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (LeaveRequestExists(leaveRequest.leaveRequestId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Created(leaveRequest);
         }
 
-        // PATCH: odata/Complexes(5)
+        // PATCH: odata/LeaveRequests(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] short key, Delta<Complex> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<LeaveRequest> patch)
         {
             Validate(patch.GetEntity());
 
@@ -106,13 +121,13 @@ namespace ComplexApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            Complex complex = await db.Complexes.FindAsync(key);
-            if (complex == null)
+            LeaveRequest leaveRequest = await db.LeaveRequests.FindAsync(key);
+            if (leaveRequest == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(complex);
+            patch.Patch(leaveRequest);
 
             try
             {
@@ -120,7 +135,7 @@ namespace ComplexApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ComplexExists(key))
+                if (!LeaveRequestExists(key))
                 {
                     return NotFound();
                 }
@@ -130,29 +145,29 @@ namespace ComplexApi.Controllers
                 }
             }
 
-            return Updated(complex);
+            return Updated(leaveRequest);
         }
 
-        // DELETE: odata/Complexes(5)
-        public async Task<IHttpActionResult> Delete([FromODataUri] short key)
+        // DELETE: odata/LeaveRequests(5)
+        public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Complex complex = await db.Complexes.FindAsync(key);
-            if (complex == null)
+            LeaveRequest leaveRequest = await db.LeaveRequests.FindAsync(key);
+            if (leaveRequest == null)
             {
                 return NotFound();
             }
 
-            db.Complexes.Remove(complex);
+            db.LeaveRequests.Remove(leaveRequest);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: odata/Complexes(5)/Buildings
+        // GET: odata/LeaveRequests(5)/Staff
         [EnableQuery]
-        public IQueryable<Building> GetBuildings([FromODataUri] short key)
+        public SingleResult<Staff> GetStaff([FromODataUri] int key)
         {
-            return db.Complexes.Where(m => m.complexId == key).SelectMany(m => m.Buildings);
+            return SingleResult.Create(db.LeaveRequests.Where(m => m.leaveRequestId == key).Select(m => m.Staff));
         }
 
         protected override void Dispose(bool disposing)
@@ -164,9 +179,9 @@ namespace ComplexApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ComplexExists(short key)
+        private bool LeaveRequestExists(int key)
         {
-            return db.Complexes.Count(e => e.complexId == key) > 0;
+            return db.LeaveRequests.Count(e => e.leaveRequestId == key) > 0;
         }
     }
 }
