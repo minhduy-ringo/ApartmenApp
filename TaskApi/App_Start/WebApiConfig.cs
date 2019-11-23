@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Http.OData.Builder;
-using System.Web.Http.OData.Extensions;
-using ComplexApi.Models;
 
-
-namespace ComplexApi
+namespace TaskApi
 {
     public static class WebApiConfig
     {
@@ -23,11 +19,6 @@ namespace ComplexApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Complex>("Complexes");
-            builder.EntitySet<Building>("Buildings");
-            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
         }
     }
 }
