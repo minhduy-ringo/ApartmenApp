@@ -13,4 +13,4 @@ Tools:
     - .NET Framework 4.7.2
     
 Credit:
-  - icon from https://icons8.com
+  - All icons by https://icons8.com
