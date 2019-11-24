@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using StaffManagement.Page.Manager;
+using StaffManagement.Page.Staff;
 
 namespace StaffManagement
 {
@@ -17,9 +19,24 @@ namespace StaffManagement
         {
             InitializeComponent();
         }
-        private void Login_Clicked(object sender, EventArgs e)
+        async private void Login_Clicked(object sender, EventArgs e)
         {
-
+            var pw = password.Text;
+            var userName = username.Text;
+            if (userName == "manager" && pw == "123456")
+            {
+                await Navigation.PushAsync(new mMainPage
+                {
+                    BindingContext = new mMainPage()
+                });
+            }  
+            if(userName == "staff" && pw == "123456")
+            {
+                await Navigation.PushAsync(new sMainPage
+                {
+                    BindingContext = new sMainPage()
+                });
+            }
         }
     }
 }

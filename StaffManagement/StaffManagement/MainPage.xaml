@@ -5,18 +5,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="StaffManagement.MainPage">
-
     <StackLayout Spacing="20"
                  Margin="20,1,20,1"
                  VerticalOptions="Center">
         <Label Text="Meo Apartment" 
                HorizontalOptions="Center"
                FontSize="Title"/>
-        <Entry Placeholder="Password"
-               IsPassword="True"
+        <Entry x:Name="username"
+               Placeholder="User name"
                IsSpellCheckEnabled="False"
                IsTextPredictionEnabled="False"/>
-        <Entry Placeholder="User name"
+        <Entry x:Name="password"
+               Placeholder="Password"
+               IsPassword="True"
                IsSpellCheckEnabled="False"
                IsTextPredictionEnabled="False"/>
         <Button Text="Log In"

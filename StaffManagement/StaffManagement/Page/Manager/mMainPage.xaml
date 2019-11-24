@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.Page.Manager.mMainPage"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <StackLayout Spacing="1" BackgroundColor="#2c2f33">
+            <Grid ColumnSpacing="8" BackgroundColor="#7289da">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="64"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ImageButton Source="icons8_menu_button_48.png"
+                             Grid.Row="0" Grid.Column="0"
+                             BackgroundColor="Transparent"
+                             />
+                <Label Text="Main Page" Grid.Column="1" Grid.ColumnSpan="3"
+                       HorizontalTextAlignment="Start"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       TextColor="Black"/>
+            </Grid>
+            <Frame x:Name="Employee" BackgroundColor="#2c2f33"
+                   BorderColor="Gray"
+                   Padding="0">
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="96"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="icons8_staff_64.png" Scale="0.6"/>
+                    <Label Text="Employee Info" Grid.Column="1" Grid.ColumnSpan="3"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           FontSize="Large"
+                           TextColor="White"/>
+                </Grid>
+            </Frame>
+            <Frame x:Name="Schedule" BackgroundColor="#2c2f33"
+                   BorderColor="Gray"
+                   Padding="0">
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="96"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="icons8_schedule_64.png" Scale="0.6"/>
+                    <Label Text="Schedule" Grid.Column="1" Grid.ColumnSpan="3"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           FontSize="Large"
+                           TextColor="White"/>
+                </Grid>
+            </Frame>
+            <Frame x:Name="LeaveNotice" BackgroundColor="#2c2f33"
+                   BorderColor="Gray"
+                   Padding="0">
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="96"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="icons8_leave_64.png" Scale="0.6"/>
+                    <Label Text="Leave notice" Grid.Column="1" Grid.ColumnSpan="3"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           FontSize="Large"
+                           TextColor="White"/>
+                </Grid>
+            </Frame>
+            <Frame x:Name="Message" BackgroundColor="#2c2f33"
+                   BorderColor="Gray"
+                   Padding="0">
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="96"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="icons8_message_preview_64.png" Scale="0.6"/>
+                    <Label Text="Message" Grid.Column="1" Grid.ColumnSpan="3"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           FontSize="Large"
+                           TextColor="White"/>
+                </Grid>
+            </Frame>
+            <Frame x:Name="Task" BackgroundColor="#2c2f33"
+                   BorderColor="Gray"
+                   Padding="0">
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="96"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="icons8_day_view_64.png" Scale="0.6"/>
+                    <Label Text="Task" Grid.Column="1" Grid.ColumnSpan="3"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           FontSize="Large"
+                           TextColor="White"/>
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

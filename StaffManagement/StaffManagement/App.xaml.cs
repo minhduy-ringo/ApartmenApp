@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.IO;
 
 namespace StaffManagement
 {
@@ -10,7 +11,8 @@ namespace StaffManagement
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            NavigationPage.SetHasNavigationBar(this, false);
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()
