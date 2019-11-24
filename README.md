@@ -11,3 +11,6 @@ Tools:
     - IOS
   2. ASP.NET + ODATA v4
     - .NET Framework 4.7.2
+    
+Credit:
+  - icon from https://icons8.com
