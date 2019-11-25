@@ -114,7 +114,7 @@ create table Schedule(
 )
 go
 create table TaskType(
-	taskTypeId nvarchar(10) NOT NULL,
+	taskTypeId smallint IDENTITY NOT NULL,
 	taskTypeName nvarchar(50),
 
 	CONSTRAINT [PK_TaskType_TaskTypeId] PRIMARY KEY CLUSTERED
@@ -125,7 +125,7 @@ create table TaskType(
 go
 create table Task(
 	taskId int IDENTITY NOT NULL,
-	taskTypeId nvarchar(10) NOT NULL,
+	taskTypeId smallint NOT NULL,
 	taskStatus nvarchar(50),
 	priority smallint,
 	complexId smallint,

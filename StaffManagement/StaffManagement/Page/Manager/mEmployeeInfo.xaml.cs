@@ -11,19 +11,11 @@ using StaffManagement.Page.Manager;
 namespace StaffManagement.Page.Manager
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class mMainPage : ContentPage
+    public partial class mEmployeeInfo : ContentPage
     {
-        public mMainPage()
+        public mEmployeeInfo()
         {
             InitializeComponent();
-        }
-
-        async void OnEmployeeTapped(object sender, EventArgs args)
-        {
-            await Navigation.PushAsync(new mEmployeeInfo
-            {
-                BindingContext = new mEmployeeInfo()
-            });
         }
     }
 }

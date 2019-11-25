@@ -19,7 +19,7 @@ namespace StaffManagement
         {
             InitializeComponent();
         }
-        async private void Login_Clicked(object sender, EventArgs e)
+        async void Login_Clicked(object sender, EventArgs e)
         {
             var pw = password.Text;
             var userName = username.Text;
