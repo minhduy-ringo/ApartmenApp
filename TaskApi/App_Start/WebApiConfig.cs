@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.OData.Builder;
+using System.Web.Http.OData.Extensions;
+using TaskApi.Models;
 
 namespace TaskApi
 {
@@ -19,6 +22,12 @@ namespace TaskApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<Task>("Tasks");
+            builder.EntitySet<TaskType>("TaskTypes");
+            builder.EntitySet<TaskStaff>("TaskStaffs");
+            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
         }
     }
 }

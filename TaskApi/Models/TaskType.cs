@@ -20,7 +20,7 @@ namespace TaskApi.Models
             this.Tasks = new HashSet<Task>();
         }
     
-        public string taskTypeId { get; set; }
+        public short taskTypeId { get; set; }
         public string taskTypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

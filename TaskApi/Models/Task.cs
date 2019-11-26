@@ -21,7 +21,7 @@ namespace TaskApi.Models
         }
     
         public int taskId { get; set; }
-        public string taskTypeId { get; set; }
+        public short taskTypeId { get; set; }
         public string taskStatus { get; set; }
         public Nullable<short> priority { get; set; }
         public Nullable<short> complexId { get; set; }
