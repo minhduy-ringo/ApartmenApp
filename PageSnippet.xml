@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <Snippet>
+    <Code Language="XAML">
+      <NavigationPage.TitleView>
+        <Label Text="" HorizontalOptions="CenterAndExpand" FontSize="Title"/>
+      </NavigationPage.TitleView>
+
+      <ContentPage.Content>
+        <StackLayout Spacing="1" BackgroundColor="#2c2f33">
+          <Frame x:Name="Employee" BackgroundColor="#2c2f33"
+                 BorderColor="Gray"
+                 Padding="0">
+            <Frame.GestureRecognizers>
+              <TapGestureRecognizer Tapped="OnEmployeeTapped"
+                                    NumberOfTapsRequired="1"/>
+            </Frame.GestureRecognizers>
+          </Frame>
+        </StackLayout>
+      </ContentPage.Content>
+    </Code>
+  </Snippet>
+</CodeSnippets>

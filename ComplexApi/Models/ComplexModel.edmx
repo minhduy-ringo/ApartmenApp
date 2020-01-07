@@ -4,29 +4,28 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ApartmentManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ApartmentManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Building">
           <Key>
-            <PropertyRef Name="complexId" />
-            <PropertyRef Name="buildingNum" />
+            <PropertyRef Name="buildingId" />
           </Key>
+          <Property Name="buildingId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="complexId" Type="smallint" Nullable="false" />
-          <Property Name="buildingNum" Type="smallint" Nullable="false" />
-          <Property Name="numOfStaff" Type="smallint" />
-          <Property Name="numOfTenant" Type="int" />
-          <Property Name="numOfDepartment" Type="int" />
-          <Property Name="availApartment" Type="int" />
+          <Property Name="noStaffs" Type="smallint" Nullable="false" />
+          <Property Name="noTenants" Type="int" Nullable="false" />
+          <Property Name="noApartments" Type="smallint" Nullable="false" />
+          <Property Name="availApartments" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Complex">
           <Key>
             <PropertyRef Name="complexId" />
           </Key>
           <Property Name="complexId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="100" />
-          <Property Name="address" Type="nvarchar" MaxLength="200" />
-          <Property Name="city" Type="nvarchar" MaxLength="50" />
-          <Property Name="numOfBuilding" Type="smallint" />
-          <Property Name="mainPhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="noBuildings" Type="smallint" Nullable="false" />
+          <Property Name="contactNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <Association Name="FK_Building_Complex">
           <End Role="Complex" Type="Self.Complex" Multiplicity="1" />
@@ -48,39 +47,45 @@
             <End Role="Building" EntitySet="Building" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApartmentManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ComplexContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buildings" EntityType="ApartmentManagementModel.Building" />
+          <EntitySet Name="Complexes" EntityType="ApartmentManagementModel.Complex" />
+          <AssociationSet Name="FK_Building_Complex" Association="ApartmentManagementModel.FK_Building_Complex">
+            <End Role="Complex" EntitySet="Complexes" />
+            <End Role="Building" EntitySet="Buildings" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Building">
           <Key>
-            <PropertyRef Name="complexId" />
-            <PropertyRef Name="buildingNum" />
+            <PropertyRef Name="buildingId" />
           </Key>
+          <Property Name="buildingId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="complexId" Type="Int16" Nullable="false" />
-          <Property Name="buildingNum" Type="Int16" Nullable="false" />
-          <Property Name="numOfStaff" Type="Int16" />
-          <Property Name="numOfTenant" Type="Int32" />
-          <Property Name="numOfDepartment" Type="Int32" />
-          <Property Name="availApartment" Type="Int32" />
-          <NavigationProperty Name="Complex" Relationship="Self.FK_Building_Complex" FromRole="Building" ToRole="Complex" />
+          <Property Name="noStaffs" Type="Int16" Nullable="false" />
+          <Property Name="noTenants" Type="Int32" Nullable="false" />
+          <Property Name="noApartments" Type="Int16" Nullable="false" />
+          <Property Name="availApartments" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Complex" Relationship="ApartmentManagementModel.FK_Building_Complex" FromRole="Building" ToRole="Complex" />
         </EntityType>
         <EntityType Name="Complex">
           <Key>
             <PropertyRef Name="complexId" />
           </Key>
           <Property Name="complexId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="numOfBuilding" Type="Int16" />
-          <Property Name="mainPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Buildings" Relationship="Self.FK_Building_Complex" FromRole="Complex" ToRole="Building" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="noBuildings" Type="Int16" Nullable="false" />
+          <Property Name="contactNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Buildings" Relationship="ApartmentManagementModel.FK_Building_Complex" FromRole="Complex" ToRole="Building" />
         </EntityType>
         <Association Name="FK_Building_Complex">
-          <End Role="Complex" Type="Self.Complex" Multiplicity="1" />
-          <End Role="Building" Type="Self.Building" Multiplicity="*" />
+          <End Type="ApartmentManagementModel.Complex" Role="Complex" Multiplicity="1" />
+          <End Type="ApartmentManagementModel.Building" Role="Building" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Complex">
               <PropertyRef Name="complexId" />
@@ -90,14 +95,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ComplexContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Buildings" EntityType="Self.Building" />
-          <EntitySet Name="Complexes" EntityType="Self.Complex" />
-          <AssociationSet Name="FK_Building_Complex" Association="Self.FK_Building_Complex">
-            <End Role="Complex" EntitySet="Complexes" />
-            <End Role="Building" EntitySet="Buildings" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -107,24 +104,24 @@
           <EntitySetMapping Name="Buildings">
             <EntityTypeMapping TypeName="ApartmentManagementModel.Building">
               <MappingFragment StoreEntitySet="Building">
+                <ScalarProperty Name="availApartments" ColumnName="availApartments" />
+                <ScalarProperty Name="noApartments" ColumnName="noApartments" />
+                <ScalarProperty Name="noTenants" ColumnName="noTenants" />
+                <ScalarProperty Name="noStaffs" ColumnName="noStaffs" />
                 <ScalarProperty Name="complexId" ColumnName="complexId" />
-                <ScalarProperty Name="buildingNum" ColumnName="buildingNum" />
-                <ScalarProperty Name="numOfStaff" ColumnName="numOfStaff" />
-                <ScalarProperty Name="numOfTenant" ColumnName="numOfTenant" />
-                <ScalarProperty Name="numOfDepartment" ColumnName="numOfDepartment" />
-                <ScalarProperty Name="availApartment" ColumnName="availApartment" />
+                <ScalarProperty Name="buildingId" ColumnName="buildingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Complexes">
             <EntityTypeMapping TypeName="ApartmentManagementModel.Complex">
               <MappingFragment StoreEntitySet="Complex">
-                <ScalarProperty Name="complexId" ColumnName="complexId" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="contactNumber" ColumnName="contactNumber" />
+                <ScalarProperty Name="noBuildings" ColumnName="noBuildings" />
                 <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="numOfBuilding" ColumnName="numOfBuilding" />
-                <ScalarProperty Name="mainPhone" ColumnName="mainPhone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="complexId" ColumnName="complexId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -27,6 +27,5 @@ namespace TaskApi.Models
     
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<TaskStaff> TaskStaffs { get; set; }
-        public virtual DbSet<TaskType> TaskTypes { get; set; }
     }
 }

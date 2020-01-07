@@ -16,9 +16,9 @@ namespace StaffApi.Models
     {
         public int leaveRequestId { get; set; }
         public int staffId { get; set; }
-        public Nullable<System.DateTime> leaveDate { get; set; }
-        public string type { get; set; }
-        public string confirmStatus { get; set; }
+        public System.DateTime leaveDate { get; set; }
+        public byte type { get; set; }
+        public byte confirmStatus { get; set; }
         public string leaveReason { get; set; }
     
         public virtual Staff Staff { get; set; }

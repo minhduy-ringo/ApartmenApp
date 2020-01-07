@@ -24,7 +24,6 @@ namespace TaskApi.Controllers
     using TaskApi.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
     builder.EntitySet<Task>("Tasks");
-    builder.EntitySet<TaskType>("TaskTypes"); 
     builder.EntitySet<TaskStaff>("TaskStaffs"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
@@ -148,13 +147,6 @@ namespace TaskApi.Controllers
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // GET: odata/Tasks(5)/TaskType
-        [EnableQuery]
-        public SingleResult<TaskType> GetTaskType([FromODataUri] int key)
-        {
-            return SingleResult.Create(db.Tasks.Where(m => m.taskId == key).Select(m => m.TaskType));
         }
 
         // GET: odata/Tasks(5)/TaskStaffs

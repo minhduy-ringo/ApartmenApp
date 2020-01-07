@@ -25,7 +25,6 @@ namespace TaskApi
 
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Task>("Tasks");
-            builder.EntitySet<TaskType>("TaskTypes");
             builder.EntitySet<TaskStaff>("TaskStaffs");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
         }

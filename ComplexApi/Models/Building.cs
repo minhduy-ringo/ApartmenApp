@@ -14,12 +14,12 @@ namespace ComplexApi.Models
     
     public partial class Building
     {
+        public short buildingId { get; set; }
         public short complexId { get; set; }
-        public short buildingNum { get; set; }
-        public Nullable<short> numOfStaff { get; set; }
-        public Nullable<int> numOfTenant { get; set; }
-        public Nullable<int> numOfDepartment { get; set; }
-        public Nullable<int> availApartment { get; set; }
+        public short noStaffs { get; set; }
+        public int noTenants { get; set; }
+        public short noApartments { get; set; }
+        public short availApartments { get; set; }
     
         public virtual Complex Complex { get; set; }
     }

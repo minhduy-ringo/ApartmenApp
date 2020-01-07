@@ -5,10 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0cfa4e5df4014167962aa0adbeba06d3" Name="Diagram1">
-        <EntityTypeShape EntityType="ApartmentManagementModel.Task" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="ApartmentManagementModel.TaskStaff" Width="1.5" PointX="5.25" PointY="1.875" />
-        <EntityTypeShape EntityType="ApartmentManagementModel.TaskType" Width="1.5" PointX="0.75" PointY="1.875" />
-        <AssociationConnector Association="ApartmentManagementModel.FK_Task_TaskType" />
+        <EntityTypeShape EntityType="ApartmentManagementModel.Task" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="ApartmentManagementModel.TaskStaff" Width="1.5" PointX="3" PointY="1.75" />
         <AssociationConnector Association="ApartmentManagementModel.FK_TaskStaff_Task" />
       </Diagram>
     </edmx:Diagrams>

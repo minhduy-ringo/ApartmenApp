@@ -20,9 +20,25 @@ namespace StaffManagement.Page.Manager
 
         async void OnEmployeeTapped(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new mEmployeeInfo
+            await Navigation.PushAsync(new mStaffInfo
             {
-                BindingContext = new mEmployeeInfo()
+                BindingContext = new mStaffInfo()
+            });
+        }
+
+        async void OnTaskTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new mTaskPage
+            {
+                BindingContext = new mTaskPage()
+            });
+        }
+
+        async void OnScheduleTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new mSchedule
+            {
+                BindingContext = new mSchedule()
             });
         }
     }

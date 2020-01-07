@@ -241,9 +241,6 @@
     <Compile Include="Models\TaskStaff.cs">
       <DependentUpon>TaskModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TaskType.cs">
-      <DependentUpon>TaskModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

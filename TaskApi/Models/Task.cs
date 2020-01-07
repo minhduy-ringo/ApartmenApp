@@ -21,17 +21,16 @@ namespace TaskApi.Models
         }
     
         public int taskId { get; set; }
-        public short taskTypeId { get; set; }
-        public string taskStatus { get; set; }
-        public Nullable<short> priority { get; set; }
-        public Nullable<short> complexId { get; set; }
-        public Nullable<short> buildingNum { get; set; }
-        public Nullable<System.DateTime> startDate { get; set; }
+        public short taskType { get; set; }
+        public short taskStatus { get; set; }
+        public short priority { get; set; }
+        public short complexId { get; set; }
+        public short buildingId { get; set; }
+        public System.DateTime startDate { get; set; }
         public Nullable<System.DateTime> endDate { get; set; }
         public string description { get; set; }
-        public Nullable<decimal> cost { get; set; }
+        public decimal cost { get; set; }
     
-        public virtual TaskType TaskType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaskStaff> TaskStaffs { get; set; }
     }

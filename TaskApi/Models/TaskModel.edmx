@@ -10,15 +10,15 @@
             <PropertyRef Name="taskId" />
           </Key>
           <Property Name="taskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="taskTypeId" Type="smallint" Nullable="false" />
-          <Property Name="taskStatus" Type="nvarchar" MaxLength="50" />
-          <Property Name="priority" Type="smallint" />
-          <Property Name="complexId" Type="smallint" />
-          <Property Name="buildingNum" Type="smallint" />
-          <Property Name="startDate" Type="datetime" />
+          <Property Name="taskType" Type="smallint" Nullable="false" />
+          <Property Name="taskStatus" Type="smallint" Nullable="false" />
+          <Property Name="priority" Type="smallint" Nullable="false" />
+          <Property Name="complexId" Type="smallint" Nullable="false" />
+          <Property Name="buildingId" Type="smallint" Nullable="false" />
+          <Property Name="startDate" Type="datetime" Nullable="false" />
           <Property Name="endDate" Type="datetime" />
-          <Property Name="description" Type="nvarchar" MaxLength="200" />
-          <Property Name="cost" Type="money" />
+          <Property Name="description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="cost" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskStaff">
           <Key>
@@ -28,29 +28,8 @@
           <Property Name="taskId" Type="int" Nullable="false" />
           <Property Name="staffId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="TaskType">
-          <Key>
-            <PropertyRef Name="taskTypeId" />
-          </Key>
-          <Property Name="taskTypeId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="taskTypeName" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <Association Name="FK_Task_TaskType">
-          <End Role="TaskType" Type="Self.TaskType" Multiplicity="1" />
-          <End Role="Task" Type="Self.Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskType">
-              <PropertyRef Name="taskTypeId" />
-            </Principal>
-            <Dependent Role="Task">
-              <PropertyRef Name="taskTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TaskStaff_Task">
-          <End Role="Task" Type="Self.Task" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
           <End Role="TaskStaff" Type="Self.TaskStaff" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Task">
@@ -64,11 +43,6 @@
         <EntityContainer Name="ApartmentManagementModelStoreContainer">
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskStaff" EntityType="Self.TaskStaff" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TaskType" EntityType="Self.TaskType" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Task_TaskType" Association="Self.FK_Task_TaskType">
-            <End Role="TaskType" EntitySet="TaskType" />
-            <End Role="Task" EntitySet="Task" />
-          </AssociationSet>
           <AssociationSet Name="FK_TaskStaff_Task" Association="Self.FK_TaskStaff_Task">
             <End Role="Task" EntitySet="Task" />
             <End Role="TaskStaff" EntitySet="TaskStaff" />
@@ -81,11 +55,6 @@
         <EntityContainer Name="TaskContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Tasks" EntityType="ApartmentManagementModel.Task" />
           <EntitySet Name="TaskStaffs" EntityType="ApartmentManagementModel.TaskStaff" />
-          <EntitySet Name="TaskTypes" EntityType="ApartmentManagementModel.TaskType" />
-          <AssociationSet Name="FK_Task_TaskType" Association="ApartmentManagementModel.FK_Task_TaskType">
-            <End Role="TaskType" EntitySet="TaskTypes" />
-            <End Role="Task" EntitySet="Tasks" />
-          </AssociationSet>
           <AssociationSet Name="FK_TaskStaff_Task" Association="ApartmentManagementModel.FK_TaskStaff_Task">
             <End Role="Task" EntitySet="Tasks" />
             <End Role="TaskStaff" EntitySet="TaskStaffs" />
@@ -96,16 +65,15 @@
             <PropertyRef Name="taskId" />
           </Key>
           <Property Name="taskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="taskTypeId" Type="Int16" Nullable="false" />
-          <Property Name="taskStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="priority" Type="Int16" />
-          <Property Name="complexId" Type="Int16" />
-          <Property Name="buildingNum" Type="Int16" />
-          <Property Name="startDate" Type="DateTime" Precision="3" />
+          <Property Name="taskType" Type="Int16" Nullable="false" />
+          <Property Name="taskStatus" Type="Int16" Nullable="false" />
+          <Property Name="priority" Type="Int16" Nullable="false" />
+          <Property Name="complexId" Type="Int16" Nullable="false" />
+          <Property Name="buildingId" Type="Int16" Nullable="false" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="endDate" Type="DateTime" Precision="3" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="cost" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="TaskType" Relationship="ApartmentManagementModel.FK_Task_TaskType" FromRole="Task" ToRole="TaskType" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="TaskStaffs" Relationship="ApartmentManagementModel.FK_TaskStaff_Task" FromRole="Task" ToRole="TaskStaff" />
         </EntityType>
         <EntityType Name="TaskStaff">
@@ -117,30 +85,8 @@
           <Property Name="staffId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Task" Relationship="ApartmentManagementModel.FK_TaskStaff_Task" FromRole="TaskStaff" ToRole="Task" />
         </EntityType>
-        <EntityType Name="TaskType">
-          <Key>
-            <PropertyRef Name="taskTypeId" />
-          </Key>
-          <Property Name="taskTypeId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="taskTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tasks" Relationship="ApartmentManagementModel.FK_Task_TaskType" FromRole="TaskType" ToRole="Task" />
-        </EntityType>
-        <Association Name="FK_Task_TaskType">
-          <End Type="ApartmentManagementModel.TaskType" Role="TaskType" Multiplicity="1" />
-          <End Type="ApartmentManagementModel.Task" Role="Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskType">
-              <PropertyRef Name="taskTypeId" />
-            </Principal>
-            <Dependent Role="Task">
-              <PropertyRef Name="taskTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TaskStaff_Task">
-          <End Type="ApartmentManagementModel.Task" Role="Task" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="ApartmentManagementModel.Task" Role="Task" Multiplicity="1" />
           <End Type="ApartmentManagementModel.TaskStaff" Role="TaskStaff" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Task">
@@ -157,18 +103,18 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ApartmentManagementModelStoreContainer" CdmEntityContainer="TaskContext">
-          <EntitySetMapping Name="Tasks">
+        <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="ApartmentManagementModel.Task">
               <MappingFragment StoreEntitySet="Task">
                 <ScalarProperty Name="cost" ColumnName="cost" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="endDate" ColumnName="endDate" />
                 <ScalarProperty Name="startDate" ColumnName="startDate" />
-                <ScalarProperty Name="buildingNum" ColumnName="buildingNum" />
+                <ScalarProperty Name="buildingId" ColumnName="buildingId" />
                 <ScalarProperty Name="complexId" ColumnName="complexId" />
                 <ScalarProperty Name="priority" ColumnName="priority" />
                 <ScalarProperty Name="taskStatus" ColumnName="taskStatus" />
-                <ScalarProperty Name="taskTypeId" ColumnName="taskTypeId" />
+                <ScalarProperty Name="taskType" ColumnName="taskType" />
                 <ScalarProperty Name="taskId" ColumnName="taskId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -178,14 +124,6 @@
               <MappingFragment StoreEntitySet="TaskStaff">
                 <ScalarProperty Name="staffId" ColumnName="staffId" />
                 <ScalarProperty Name="taskId" ColumnName="taskId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TaskTypes">
-            <EntityTypeMapping TypeName="ApartmentManagementModel.TaskType">
-              <MappingFragment StoreEntitySet="TaskType">
-                <ScalarProperty Name="taskTypeName" ColumnName="taskTypeName" />
-                <ScalarProperty Name="taskTypeId" ColumnName="taskTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -25,6 +25,7 @@ namespace StaffApi.Controllers
     builder.EntitySet<Staff>("Staffs");
     builder.EntitySet<Department>("Departments"); 
     builder.EntitySet<LeaveRequest>("LeaveRequests"); 
+    builder.EntitySet<Schedule>("Schedules"); 
     builder.EntitySet<StaffVacation>("StaffVacations"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
@@ -92,22 +93,7 @@ namespace StaffApi.Controllers
             }
 
             db.Staffs.Add(staff);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (StaffExists(staff.staffId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return Created(staff);
         }
@@ -165,13 +151,6 @@ namespace StaffApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: odata/Staffs(5)/Departments
-        [EnableQuery]
-        public IQueryable<Department> GetDepartments([FromODataUri] int key)
-        {
-            return db.Staffs.Where(m => m.staffId == key).SelectMany(m => m.Departments);
-        }
-
         // GET: odata/Staffs(5)/Department
         [EnableQuery]
         public SingleResult<Department> GetDepartment([FromODataUri] int key)
@@ -184,6 +163,13 @@ namespace StaffApi.Controllers
         public IQueryable<LeaveRequest> GetLeaveRequests([FromODataUri] int key)
         {
             return db.Staffs.Where(m => m.staffId == key).SelectMany(m => m.LeaveRequests);
+        }
+
+        // GET: odata/Staffs(5)/Schedules
+        [EnableQuery]
+        public IQueryable<Schedule> GetSchedules([FromODataUri] int key)
+        {
+            return db.Staffs.Where(m => m.staffId == key).SelectMany(m => m.Schedules);
         }
 
         // GET: odata/Staffs(5)/StaffVacations

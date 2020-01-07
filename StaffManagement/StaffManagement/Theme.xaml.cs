@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using StaffManagement.Page.Manager;
 
-namespace StaffManagement.Page.Manager
+namespace StaffManagement
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class mEmployeeInfo : ContentPage
+    public partial class Theme : ContentPage
     {
-        public mEmployeeInfo()
+        public Theme()
         {
-            InitializeComponent();
+            
         }
     }
 }

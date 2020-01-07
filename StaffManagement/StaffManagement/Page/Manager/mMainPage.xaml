@@ -6,28 +6,18 @@
              mc:Ignorable="d"
              x:Class="StaffManagement.Page.Manager.mMainPage"
              NavigationPage.HasNavigationBar="true">
+    
+    <NavigationPage.TitleView>
+        <Label Text="Trang chủ" FontSize="Title"/>
+    </NavigationPage.TitleView>
+    
     <ContentPage.Content>
-        <StackLayout Spacing="1" BackgroundColor="#2c2f33">
-            <!--<Grid ColumnSpacing="8" BackgroundColor="#7289da">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="64"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <ImageButton Source="icons8_menu_24.png"
-                             Grid.Row="0" Grid.Column="0"
-                             BackgroundColor="Transparent"
-                             />
-                <Label Text="Main Page" Grid.Column="1" Grid.ColumnSpan="3"
-                       HorizontalTextAlignment="Start"
-                       VerticalTextAlignment="Center"
-                       FontSize="Large"
-                       TextColor="Black"/>
-            </Grid>-->
-            <Frame x:Name="Employee" BackgroundColor="#2c2f33"
-                   BorderColor="Gray"
+        <StackLayout Spacing="1" BackgroundColor="{DynamicResource PrimaryColor}">
+            <Label Text="Xin chào {Manager}" FontSize="Title" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"
+                   TextColor="{DynamicResource TextColor}"/>
+            <Frame x:Name="Employee" BackgroundColor="{DynamicResource PrimaryColor}"
                    Padding="0">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnEmployeeTapped"
@@ -42,16 +32,19 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="icons8_staff_64.png" Scale="0.6"/>
-                    <Label Text="Employee Info" Grid.Column="1" Grid.ColumnSpan="3"
+                    <Label Text="Nhân viên" Grid.Column="1" Grid.ColumnSpan="3"
                            HorizontalTextAlignment="Start"
                            VerticalTextAlignment="Center"
                            FontSize="Large"
-                           TextColor="White"/>
+                           TextColor="{DynamicResource TextColor}"/>
                 </Grid>
             </Frame>
-            <Frame x:Name="Schedule" BackgroundColor="#2c2f33"
-                   BorderColor="Gray"
+            <Frame x:Name="Schedule" BackgroundColor="{DynamicResource PrimaryColor}"
                    Padding="0">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnScheduleTapped"
+                                          NumberOfTapsRequired="1"/>
+                </Frame.GestureRecognizers>
                 <Grid ColumnSpacing="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="96"/>
@@ -61,15 +54,14 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="icons8_schedule_64.png" Scale="0.6"/>
-                    <Label Text="Schedule" Grid.Column="1" Grid.ColumnSpan="3"
+                    <Label Text="Công tác" Grid.Column="1" Grid.ColumnSpan="3"
                            HorizontalTextAlignment="Start"
                            VerticalTextAlignment="Center"
                            FontSize="Large"
-                           TextColor="White"/>
+                           TextColor="{DynamicResource TextColor}"/>
                 </Grid>
             </Frame>
-            <Frame x:Name="LeaveNotice" BackgroundColor="#2c2f33"
-                   BorderColor="Gray"
+            <Frame x:Name="LeaveNotice" BackgroundColor="{DynamicResource PrimaryColor}"
                    Padding="0">
                 <Grid ColumnSpacing="0">
                     <Grid.RowDefinitions>
@@ -80,15 +72,14 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="icons8_leave_64.png" Scale="0.6"/>
-                    <Label Text="Leave notice" Grid.Column="1" Grid.ColumnSpan="3"
+                    <Label Text="Nghỉ phép" Grid.Column="1" Grid.ColumnSpan="3"
                            HorizontalTextAlignment="Start"
                            VerticalTextAlignment="Center"
                            FontSize="Large"
-                           TextColor="White"/>
+                           TextColor="{DynamicResource TextColor}"/>
                 </Grid>
             </Frame>
-            <Frame x:Name="Message" BackgroundColor="#2c2f33"
-                   BorderColor="Gray"
+            <Frame x:Name="Message" BackgroundColor="{DynamicResource PrimaryColor}"
                    Padding="0">
                 <Grid ColumnSpacing="0">
                     <Grid.RowDefinitions>
@@ -99,16 +90,19 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="icons8_message_preview_64.png" Scale="0.6"/>
-                    <Label Text="Message" Grid.Column="1" Grid.ColumnSpan="3"
+                    <Label Text="Thông báo" Grid.Column="1" Grid.ColumnSpan="3"
                            HorizontalTextAlignment="Start"
                            VerticalTextAlignment="Center"
                            FontSize="Large"
-                           TextColor="White"/>
+                           TextColor="{DynamicResource TextColor}"/>
                 </Grid>
             </Frame>
-            <Frame x:Name="Task" BackgroundColor="#2c2f33"
-                   BorderColor="Gray"
+            <Frame x:Name="Task" BackgroundColor="{DynamicResource PrimaryColor}"
                    Padding="0">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTaskTapped"
+                                          NumberOfTapsRequired="1"/>
+                </Frame.GestureRecognizers>
                 <Grid ColumnSpacing="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="96"/>
@@ -118,11 +112,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="icons8_day_view_64.png" Scale="0.6"/>
-                    <Label Text="Task" Grid.Column="1" Grid.ColumnSpan="3"
+                    <Label Text="Công việc" Grid.Column="1" Grid.ColumnSpan="3"
                            HorizontalTextAlignment="Start"
                            VerticalTextAlignment="Center"
                            FontSize="Large"
-                           TextColor="White"/>
+                           TextColor="{DynamicResource TextColor}"/>
                 </Grid>
             </Frame>
         </StackLayout>

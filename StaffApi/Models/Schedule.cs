@@ -16,11 +16,11 @@ namespace StaffApi.Models
     {
         public int scheduleId { get; set; }
         public int staffId { get; set; }
-        public Nullable<System.DateTime> workDate { get; set; }
-        public Nullable<System.TimeSpan> startWorkHour { get; set; }
-        public Nullable<System.TimeSpan> endWorkHour { get; set; }
-        public Nullable<bool> isHoliday { get; set; }
-        public Nullable<bool> isWeekend { get; set; }
+        public System.DateTime wordDate { get; set; }
+        public System.TimeSpan startWorkHour { get; set; }
+        public System.TimeSpan endWorkHour { get; set; }
+        public bool isHoliday { get; set; }
+        public bool isWeekend { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

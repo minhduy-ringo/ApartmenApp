@@ -6,6 +6,10 @@
              mc:Ignorable="d"
              x:Class="StaffManagement.App">
     <Application.Resources>
+        <ResourceDictionary Source="Theme.xaml"/>
 
+        <Style x:Key="NavigationBarColor" TargetType="NavigationPage">
+            <Setter Property="BackgroundColor" Value="{DynamicResource NavigationBar}"/>
+        </Style>
     </Application.Resources>
 </Application>

@@ -90,22 +90,7 @@ namespace StaffApi.Controllers
             }
 
             db.Departments.Add(department);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (DepartmentExists(department.departmentId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return Created(department);
         }
@@ -161,13 +146,6 @@ namespace StaffApi.Controllers
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // GET: odata/Departments(5)/Staff
-        [EnableQuery]
-        public SingleResult<Staff> GetStaff([FromODataUri] short key)
-        {
-            return SingleResult.Create(db.Departments.Where(m => m.departmentId == key).Select(m => m.Staff));
         }
 
         // GET: odata/Departments(5)/Staffs

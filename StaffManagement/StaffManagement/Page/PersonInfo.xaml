@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.Page.PersonInfo"
+             BackgroundColor="{DynamicResource PrimaryColor}">
+    <NavigationPage.TitleView>
+        <Label Text="Thông tin" TextColor="{DynamicResource PrimaryColor}" FontSize="Title"/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout Margin="20" Spacing="30">
+            <Image Source="icons8_staff_64.png"/>
+            <Label Text="{Binding name}" TextColor="{DynamicResource TextColor}" FontSize="Large" HorizontalTextAlignment="Center"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Phòng ban" TextColor="{DynamicResource TextColor}" FontSize="Large" Grid.Column="0"/>
+                <Label Text="{Binding departmentId}" TextColor="{DynamicResource TextColor}" FontSize="Large" Grid.Column="1"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Điện thoại" FontSize="Large" TextColor="{DynamicResource TextColor}" Grid.Column="0"/>
+                <Label Text="{Binding mobile}" FontSize="Large" TextColor="{DynamicResource TextColor}" Grid.Column="1"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Địa chỉ" FontSize="Large" TextColor="{DynamicResource TextColor}" Grid.Column="0"/>
+                <Label Text="{Binding address}" FontSize="Large" TextColor="{DynamicResource TextColor}" Grid.Column="1"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Ngày gia nhập" FontSize="Large" TextColor="{DynamicResource TextColor}" Grid.Column="0"/>
+                <Label Text="{Binding joinDate, StringFormat='{0:d}'}" FontSize="Large" TextColor="{DynamicResource TextColor}" Grid.Column="1"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" BackgroundColor="Transparent" Padding="0">
+                    <Grid Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="icons8_schedule_64.png" Grid.Row="0"/>
+                        <Label Text="Công tác" 
+                               TextColor="{DynamicResource TextColor}" Grid.Row="1"
+                               HorizontalOptions="Center"
+                               FontSize="Body"/>
+                    </Grid>
+                </Frame>
+                <Frame Grid.Column="1" BackgroundColor="Transparent" Padding="0">
+                    <Grid Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="icons8_leave_64.png" Grid.Row="0"/>
+                        <Label Text="Nghỉ phép" 
+                               TextColor="{DynamicResource TextColor}" Grid.Row="1"
+                               HorizontalOptions="Center"
+                               FontSize="Body"/>
+                    </Grid>
+                </Frame>
+                <Frame Grid.Column="2" BackgroundColor="Transparent" Padding="0">
+                    <Grid Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="icons8_day_view_64.png" Grid.Row="0"/>
+                        <Label Text="Công việc" 
+                               TextColor="{DynamicResource TextColor}" Grid.Row="1"
+                               HorizontalOptions="Center"
+                               FontSize="Body"/>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -27,8 +27,8 @@ namespace StaffApi.Models
     
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<StaffVacation> StaffVacations { get; set; }
-        public virtual DbSet<Schedule> Schedules { get; set; }
     }
 }

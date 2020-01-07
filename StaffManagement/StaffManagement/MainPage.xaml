@@ -5,6 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="StaffManagement.MainPage">
+    
+    <NavigationPage.TitleView>
+        <Label Text="Đăng nhập" HorizontalOptions="Center" FontSize="Title"/>
+    </NavigationPage.TitleView>
+    
     <StackLayout Spacing="20"
                  Margin="20,1,20,1"
                  VerticalOptions="Center">
@@ -12,15 +17,17 @@
                HorizontalOptions="Center"
                FontSize="Title"/>
         <Entry x:Name="username"
-               Placeholder="User name"
+               Placeholder="Tên đăng nhập"
+               Text="manager"
                IsSpellCheckEnabled="False"
                IsTextPredictionEnabled="False"/>
         <Entry x:Name="password"
-               Placeholder="Password"
+               Placeholder="Mật khẩu"
+               Text="123456"
                IsPassword="True"
                IsSpellCheckEnabled="False"
                IsTextPredictionEnabled="False"/>
-        <Button Text="Log In"
+        <Button Text="Đăng nhập"
             HorizontalOptions="Center"
             VerticalOptions="End"
             Clicked="Login_Clicked"/>

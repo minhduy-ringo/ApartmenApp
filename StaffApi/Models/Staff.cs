@@ -17,31 +17,28 @@ namespace StaffApi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Staff()
         {
-            this.Departments = new HashSet<Department>();
             this.LeaveRequests = new HashSet<LeaveRequest>();
-            this.StaffVacations = new HashSet<StaffVacation>();
             this.Schedules = new HashSet<Schedule>();
+            this.StaffVacations = new HashSet<StaffVacation>();
         }
     
         public int staffId { get; set; }
+        public short departmentId { get; set; }
+        public short complexId { get; set; }
         public string name { get; set; }
-        public Nullable<System.DateTime> birthday { get; set; }
+        public System.DateTime birthday { get; set; }
         public string address { get; set; }
         public string city { get; set; }
         public string mobile { get; set; }
-        public Nullable<short> departmentId { get; set; }
-        public Nullable<short> complexId { get; set; }
-        public Nullable<System.DateTime> joinDate { get; set; }
+        public System.DateTime joinDate { get; set; }
         public Nullable<System.DateTime> leaveDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Department> Departments { get; set; }
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveRequest> LeaveRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StaffVacation> StaffVacations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StaffVacation> StaffVacations { get; set; }
     }
 }
