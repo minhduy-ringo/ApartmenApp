@@ -92,31 +92,34 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_day_view_64.png" />
+    <AndroidResource Include="Resources\drawable\icons8_doorbell_64.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_leave_64.png" />
+    <AndroidResource Include="Resources\drawable\icons8_chat_50.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_menu_button_48.png" />
+    <AndroidResource Include="Resources\drawable\icons8_home_50.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_message_preview_64.png" />
+    <AndroidResource Include="Resources\drawable\icons8_leave_50.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_staff_64.png" />
+    <AndroidResource Include="Resources\drawable\icons8_people_50.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_schedule_64.png" />
+    <AndroidResource Include="Resources\drawable\icons8_person_female_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_menu_24.png" />
+    <AndroidResource Include="Resources\drawable\icons8_schedule_50.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_search_64.png" />
+    <AndroidResource Include="Resources\drawable\icons8_task_50.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icons8_plus_64.png" />
+    <AndroidResource Include="Resources\drawable\cat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icons8_ava_50.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

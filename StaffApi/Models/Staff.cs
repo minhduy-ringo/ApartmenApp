@@ -32,6 +32,7 @@ namespace StaffApi.Models
         public string mobile { get; set; }
         public System.DateTime joinDate { get; set; }
         public Nullable<System.DateTime> leaveDate { get; set; }
+        public bool isManager { get; set; }
     
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

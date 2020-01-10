@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using System.Web.Http.OData;
-using System.Web.Http.OData.Routing;
+using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNet.OData;
 using StaffApi.Models;
 
 namespace StaffApi.Controllers
@@ -39,7 +39,6 @@ namespace StaffApi.Controllers
         {
             return db.Staffs;
         }
-
         // GET: odata/Staffs(5)
         [EnableQuery]
         public SingleResult<Staff> GetStaff([FromODataUri] int key)
@@ -50,8 +49,6 @@ namespace StaffApi.Controllers
         // PUT: odata/Staffs(5)
         public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<Staff> patch)
         {
-            Validate(patch.GetEntity());
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -102,8 +99,6 @@ namespace StaffApi.Controllers
         [AcceptVerbs("PATCH", "MERGE")]
         public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Staff> patch)
         {
-            Validate(patch.GetEntity());
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

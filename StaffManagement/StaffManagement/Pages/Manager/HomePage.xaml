@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.Pages.Manager.HomePage"
+             NavigationPage.HasNavigationBar="False"
+             Title="Trang chủ"
+             IconImageSource="icons8_home_50.png"
+             BackgroundColor="{DynamicResource PrimaryColor}">
+
+    <ContentPage.Content>
+        <StackLayout Spacing="10" Margin="10,0,10,0">
+            <Grid Padding="0" HeightRequest="70" BackgroundColor="{DynamicResource NavigationBar}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" CornerRadius="50" BackgroundColor="Transparent" HasShadow="True">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnAvatarTapped" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                    <Image Source="icons8_person_female_48.png"/>
+                </Frame>
+                <Grid Grid.Column="1" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="Xin chào" TextColor="{DynamicResource TextColor}" FontSize="Micro" Grid.Row="0" VerticalOptions="End" HorizontalOptions="Start"/>
+                    <Label Text="{Binding name}" TextColor="{DynamicResource TextColor}" FontSize="Body" FontAttributes="Bold" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Start"/>
+                </Grid>
+                <Frame Grid.Column="2" BackgroundColor="White" HasShadow="True" CornerRadius="50" Scale="0.6">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnNoticeTapped" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                    <Image Source="icons8_doorbell_64.png" Aspect="AspectFit"/>
+                </Frame>
+            </Grid>
+            <Frame BorderColor="LightGray" HasShadow="True" CornerRadius="15" BackgroundColor="Transparent" HeightRequest="80" Padding="5">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnLeaveTapped"/>
+                </Frame.GestureRecognizers>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame CornerRadius="50" BackgroundColor="{DynamicResource IconBackground}" HasShadow="True" HorizontalOptions="Center" Margin="0,0,0,5" Scale="0.7" Grid.Column="0">
+                        <Image Source="icons8_leave_50.png" Grid.Column="0" Scale="0.8" BackgroundColor="Transparent"/>
+                    </Frame>
+                    <Label Text="Nghỉ phép" FontSize="Body" TextColor="{DynamicResource TextColor}" HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1"/>
+                </Grid>
+            </Frame>
+            <!--<Frame BorderColor="LightGray" HasShadow="True" CornerRadius="15" BackgroundColor="Transparent" HeightRequest="80" Padding="5">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnTaskTapped"/>
+                </Frame.GestureRecognizers>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame CornerRadius="50" BackgroundColor="{DynamicResource IconBackground}" HasShadow="True" HorizontalOptions="Center" Margin="0,0,0,5" Scale="0.7" Grid.Column="0">
+                        <Image Source="icons8_task_50.png" Scale="0.8" BackgroundColor="Transparent"/>
+                    </Frame>
+                    <Label Text="Công việc" FontSize="Body" TextColor="{DynamicResource TextColor}" HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="1"/>
+                </Grid>
+            </Frame>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

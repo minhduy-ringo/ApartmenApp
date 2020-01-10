@@ -10,15 +10,15 @@ namespace StaffManagement.Model
     class Task
     {
         public int taskId { get; set; }
-        public short taskTypeId { get; set; }
-        public string taskStatus { get; set; }
-        public Nullable<short> priority { get; set; }
-        public Nullable<short> complexId { get; set; }
-        public Nullable<short> buildingNum { get; set; }
-        public Nullable<System.DateTime> startDate { get; set; }
+        public short taskType { get; set; }
+        public short taskStatus { get; set; }
+        public short priority { get; set; }
+        public short complexId { get; set; }
+        public short buildingId { get; set; }
+        public System.DateTime startDate { get; set; }
         public Nullable<System.DateTime> endDate { get; set; }
         public string description { get; set; }
-        public Nullable<decimal> cost { get; set; }
+        public decimal cost { get; set; }
     }
     class Odata_Task
     {
@@ -27,23 +27,6 @@ namespace StaffManagement.Model
         [JsonProperty("value")]
         public List<Staff> TaskList { get; set; }
     }
-
-    class TaskView
-    {
-        public int taskId { get; set; }
-        public string taskTypeName { get; set; }
-        public string taskStatus { get; set; }
-        public Nullable<short> buildingNum { get; set; }
-    }
-
-    class Odata_TaskView
-    {
-        [JsonProperty("odata.metadata")]
-        public string Metadata { get; set; }
-        [JsonProperty("value")]
-        public List<TaskView> TaskViewList { get; set; }
-    }
-
     public class TaskStatusConvert : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -4,7 +4,7 @@
     <!--White-->
     <Color x:Key="TextColor">#ffffff</Color>
     <!--Gray-->
-    <Color x:Key="Selection">#99AAB5</Color>
+    <Color x:Key="IconBackground">#99aab5</Color>
     <!--Dark-->
     <Color x:Key="PrimaryColor">#2C2F33</Color>
     <!--Darker-->

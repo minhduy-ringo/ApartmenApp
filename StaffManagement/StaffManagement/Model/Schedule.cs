@@ -8,10 +8,12 @@ namespace StaffManagement.Model
     class ScheduleView
     {
         public int scheduleId { get; set; }
-        public string name { get; set; }
-        public Nullable<System.DateTime> workDate { get; set; }
-        public string startWorkHour { get; set; }
-        public string endWorkHour { get; set; }
+        public int staffId { get; set; }
+        public System.DateTime wordDate { get; set; }
+        public System.TimeSpan startWorkHour { get; set; }
+        public System.TimeSpan endWorkHour { get; set; }
+        public bool isHoliday { get; set; }
+        public bool isWeekend { get; set; }
     }
     class Odata_ScheduleView
     {

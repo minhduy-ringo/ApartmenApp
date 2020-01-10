@@ -18,31 +18,49 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Page\Manager\mStaffInfo.xaml.cs">
+    <Compile Update="Pages\Manager\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Manager\mStaffInfo.xaml.cs">
       <DependentUpon>mStaffInfo.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Page\Manager\mAddNewStaff.xaml">
+    <EmbeddedResource Update="Pages\Manager\mAddNewStaff.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\Manager\mSchedule.xaml">
+    <EmbeddedResource Update="Pages\Manager\ManagerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\Manager\mStaffInfo.xaml">
+    <EmbeddedResource Update="Pages\Manager\mLeavePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\Manager\mMainPage.xaml">
+    <EmbeddedResource Update="Pages\Manager\mNoticePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\Manager\mTaskPage.xaml">
+    <EmbeddedResource Update="Pages\Manager\mSchedule.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\PersonInfo.xaml">
+    <EmbeddedResource Update="Pages\Manager\mStaffInfo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page\Staff\sMainPage.xaml">
+    <EmbeddedResource Update="Pages\Manager\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Manager\mTaskPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\PersonInfo.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Staff\StaffMainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Staff\StaffMainPageDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Staff\StaffMainPageMaster.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Theme.xaml">

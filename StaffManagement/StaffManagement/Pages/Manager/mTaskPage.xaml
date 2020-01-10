@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="clr-namespace:StaffManagement.Model"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.Pages.Manager.mTaskPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="Công việc"
+             IconImageSource="icons8_task_50.png"
+             BackgroundColor="{DynamicResource PrimaryColor}">
+
+    <ContentPage.Content>
+        <StackLayout Spacing="10" Margin="10,10,10,0">
+            <Grid ColumnSpacing="10" HeightRequest="70">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" BackgroundColor="Transparent" BorderColor="White" CornerRadius="10" HasShadow="True" Padding="0">
+                    <Picker x:Name="type_picker" TextColor="{DynamicResource TextColor}"
+                            BackgroundColor="Transparent" FontSize="Body" Title="Loại" TitleColor="{DynamicResource TextColor}"/>
+                </Frame>
+                <Frame Grid.Column="1" BackgroundColor="Transparent" BorderColor="White" CornerRadius="10" HasShadow="True" Padding="0">
+                    <Picker x:Name="status_picker" TextColor="{DynamicResource TextColor}"
+                            BackgroundColor="Transparent" FontSize="Body" Title="Trạng thái" TitleColor="{DynamicResource TextColor}"/>
+                </Frame>
+            </Grid>
+            <ListView x:Name="TaskViewList" BackgroundColor="Transparent" HasUnevenRows="True" SeparatorVisibility="Default" Margin="15,5,15,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Tapped="ViewCell_Tapped">
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

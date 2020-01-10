@@ -4,17 +4,20 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="StaffManagement.MainPage">
+             x:Class="StaffManagement.MainPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
     
     <NavigationPage.TitleView>
         <Label Text="Đăng nhập" HorizontalOptions="Center" FontSize="Title"/>
     </NavigationPage.TitleView>
     
-    <StackLayout Spacing="20"
-                 Margin="20,1,20,1"
-                 VerticalOptions="Center">
+    <StackLayout Spacing="10"
+                 Margin="20,0,20,0"
+                 VerticalOptions="Start">
+        <Image Source="cat.png" VerticalOptions="End" HorizontalOptions="Center" Scale="0.4" HeightRequest="200"/>
         <Label Text="Meo Apartment" 
-               HorizontalOptions="Center"
+               HorizontalOptions="Center" VerticalOptions="Start"
                FontSize="Title"/>
         <Entry x:Name="username"
                Placeholder="Tên đăng nhập"
@@ -23,7 +26,7 @@
                IsTextPredictionEnabled="False"/>
         <Entry x:Name="password"
                Placeholder="Mật khẩu"
-               Text="123456"
+               Text="manager"
                IsPassword="True"
                IsSpellCheckEnabled="False"
                IsTextPredictionEnabled="False"/>

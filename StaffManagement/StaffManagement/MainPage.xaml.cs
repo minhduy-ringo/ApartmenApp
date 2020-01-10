@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using StaffManagement.Page.Manager;
-using StaffManagement.Page.Staff;
+using StaffManagement.Pages.Manager;
+using StaffManagement.Pages.Staff;
+using System.Net.Http;
+using Newtonsoft.Json;
+using StaffManagement.Model;
 
 namespace StaffManagement
 {
@@ -23,19 +26,32 @@ namespace StaffManagement
         {
             var pw = password.Text;
             var userName = username.Text;
-            if (userName == "manager" && pw == "123456")
+            using (var client = new HttpClient())
             {
-                await Navigation.PushAsync(new mMainPage
+                var ip = Application.Current.Properties["ip"];
+                OData_Staff oData;
+                try
                 {
-                    BindingContext = new mMainPage()
-                });
-            }  
-            if(userName == "staff" && pw == "123456")
-            {
-                await Navigation.PushAsync(new sMainPage
+                    var json = await client.GetStringAsync(ip + "/StaffApi/odata/Login?user=" + userName + "&pass=" + pw);
+                    oData = JsonConvert.DeserializeObject<OData_Staff>(json);
+                    if (oData.StaffList.First<Staff>().isManager == false)
+                    {
+                        var staffPage = new StaffMainPage();
+                        staffPage.BindingContext = oData.StaffList.First<Staff>();
+                        await Navigation.PushAsync(staffPage);
+                    }
+                    else
+                    {
+                        var managerPage = new ManagerPage();
+                        managerPage.BindingContext = oData.StaffList.First<Staff>();
+                        await Navigation.PushAsync(managerPage);
+                    }
+                }
+                catch (Exception ex)
                 {
-                    BindingContext = new sMainPage()
-                });
+                    Console.WriteLine(ex);
+                    await DisplayAlert("Lỗi", ex.Message, "Xác nhận");
+                }
             }
         }
     }

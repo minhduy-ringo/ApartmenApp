@@ -10,15 +10,13 @@ namespace StaffManagement
         public App()
         {
             InitializeComponent();
-
-            NavigationPage.SetHasNavigationBar(this, false);
             MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
-            Application.Current.Properties["ip"] = "http://192.168.43.24:8055";
+            Application.Current.Properties["ip"] = "http://192.168.1.107:8055";
         }
 
         protected override void OnSleep()

@@ -12,6 +12,8 @@ namespace StaffApi.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class StaffContext : DbContext
     {
@@ -30,5 +32,31 @@ namespace StaffApi.Models
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<StaffVacation> StaffVacations { get; set; }
+    
+        public virtual ObjectResult<Staff> USP_Login(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Staff>("USP_Login", usernameParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<Staff> USP_Login(string username, string password, MergeOption mergeOption)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Staff>("USP_Login", mergeOption, usernameParameter, passwordParameter);
+        }
     }
 }

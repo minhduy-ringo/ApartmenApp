@@ -50,6 +50,7 @@
           <Property Name="mobile" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="joinDate" Type="date" Nullable="false" />
           <Property Name="leaveDate" Type="date" />
+          <Property Name="isManager" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="StaffVacation">
           <Key>
@@ -108,6 +109,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="USP_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ApartmentManagementModelStoreContainer">
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRequest" EntityType="Self.LeaveRequest" Schema="dbo" store:Type="Tables" />
@@ -157,6 +162,10 @@
             <End Role="Staff" EntitySet="Staffs" />
             <End Role="StaffVacation" EntitySet="StaffVacations" />
           </AssociationSet>
+          <FunctionImport Name="USP_Login" EntitySet="Staffs" ReturnType="Collection(ApartmentManagementModel.Staff)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Department">
           <Key>
@@ -210,6 +219,7 @@
           <NavigationProperty Name="LeaveRequests" Relationship="ApartmentManagementModel.FK_LeaveRequest_Staff" FromRole="Staff" ToRole="LeaveRequest" />
           <NavigationProperty Name="Schedules" Relationship="ApartmentManagementModel.FK_Schedule_Staff" FromRole="Staff" ToRole="Schedule" />
           <NavigationProperty Name="StaffVacations" Relationship="ApartmentManagementModel.FK_StaffVacation_Staff" FromRole="Staff" ToRole="StaffVacation" />
+          <Property Name="isManager" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="StaffVacation">
           <Key>
@@ -312,6 +322,7 @@
           <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="ApartmentManagementModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="isManager" ColumnName="isManager" />
                 <ScalarProperty Name="leaveDate" ColumnName="leaveDate" />
                 <ScalarProperty Name="joinDate" ColumnName="joinDate" />
                 <ScalarProperty Name="mobile" ColumnName="mobile" />
@@ -335,6 +346,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_Login" FunctionName="ApartmentManagementModel.Store.USP_Login" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

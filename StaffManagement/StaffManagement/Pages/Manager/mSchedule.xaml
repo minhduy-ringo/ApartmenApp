@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.Pages.Manager.mSchedule">
+
+    <NavigationPage.TitleView>
+        <Label Text="Công tác" FontSize="Title"/>
+    </NavigationPage.TitleView>
+    
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{DynamicResource PrimaryColor}">
+            <ListView x:Name="ScheduleViewList" BackgroundColor="Transparent">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding name}" TextColor="{DynamicResource TextColor}" FontSize="Body" Grid.Column="0"/>
+                                <Label Text="{Binding workDate, StringFormat='{0:d}'}" TextColor="{DynamicResource TextColor}" FontSize="Body" Grid.Column="1"/>
+                                <Label Text="{Binding startWorkHour, StringFormat='{0:HH:mm:ss}'}" TextColor="{DynamicResource TextColor}" FontSize="Body" Grid.Column="2"/>
+                                <Label Text="{Binding endWorkHour, StringFormat='{0:HH:mm:ss}'}" TextColor="{DynamicResource TextColor}" FontSize="Body" Grid.Column="3"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
