@@ -24,6 +24,24 @@
           <Property Name="confirmStatus" Type="tinyint" Nullable="false" />
           <Property Name="leaveReason" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="noticeId" />
+          </Key>
+          <Property Name="noticeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="senderId" Type="int" Nullable="false" />
+          <Property Name="sendDate" Type="datetime" Nullable="false" />
+          <Property Name="message" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NoticeReceiver">
+          <Key>
+            <PropertyRef Name="nrId" />
+          </Key>
+          <Property Name="nrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="noticeId" Type="int" Nullable="false" />
+          <Property Name="receiverId" Type="int" Nullable="false" />
+          <Property Name="isRead" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="scheduleId" />
@@ -73,6 +91,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Notice_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Notice" Type="Self.Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="Notice">
+              <PropertyRef Name="senderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NoticeReceiver_Notice">
+          <End Role="Notice" Type="Self.Notice" Multiplicity="1" />
+          <End Role="NoticeReceiver" Type="Self.NoticeReceiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notice">
+              <PropertyRef Name="noticeId" />
+            </Principal>
+            <Dependent Role="NoticeReceiver">
+              <PropertyRef Name="noticeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NoticeReceiver_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="NoticeReceiver" Type="Self.NoticeReceiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="NoticeReceiver">
+              <PropertyRef Name="receiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Schedule_Staff">
           <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
@@ -116,12 +170,26 @@
         <EntityContainer Name="ApartmentManagementModelStoreContainer">
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRequest" EntityType="Self.LeaveRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notice" EntityType="Self.Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NoticeReceiver" EntityType="Self.NoticeReceiver" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StaffVacation" EntityType="Self.StaffVacation" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_LeaveRequest_Staff" Association="Self.FK_LeaveRequest_Staff">
             <End Role="Staff" EntitySet="Staff" />
             <End Role="LeaveRequest" EntitySet="LeaveRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notice_Staff" Association="Self.FK_Notice_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Notice" EntitySet="Notice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NoticeReceiver_Notice" Association="Self.FK_NoticeReceiver_Notice">
+            <End Role="Notice" EntitySet="Notice" />
+            <End Role="NoticeReceiver" EntitySet="NoticeReceiver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NoticeReceiver_Staff" Association="Self.FK_NoticeReceiver_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="NoticeReceiver" EntitySet="NoticeReceiver" />
           </AssociationSet>
           <AssociationSet Name="FK_Schedule_Staff" Association="Self.FK_Schedule_Staff">
             <End Role="Staff" EntitySet="Staff" />
@@ -166,6 +234,20 @@
             <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Notices" EntityType="ApartmentManagementModel.Notice" />
+          <EntitySet Name="NoticeReceivers" EntityType="ApartmentManagementModel.NoticeReceiver" />
+          <AssociationSet Name="FK_Notice_Staff" Association="ApartmentManagementModel.FK_Notice_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Notice" EntitySet="Notices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NoticeReceiver_Notice" Association="ApartmentManagementModel.FK_NoticeReceiver_Notice">
+            <End Role="Notice" EntitySet="Notices" />
+            <End Role="NoticeReceiver" EntitySet="NoticeReceivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NoticeReceiver_Staff" Association="ApartmentManagementModel.FK_NoticeReceiver_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="NoticeReceiver" EntitySet="NoticeReceivers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Department">
           <Key>
@@ -220,6 +302,8 @@
           <NavigationProperty Name="Schedules" Relationship="ApartmentManagementModel.FK_Schedule_Staff" FromRole="Staff" ToRole="Schedule" />
           <NavigationProperty Name="StaffVacations" Relationship="ApartmentManagementModel.FK_StaffVacation_Staff" FromRole="Staff" ToRole="StaffVacation" />
           <Property Name="isManager" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Notices" Relationship="ApartmentManagementModel.FK_Notice_Staff" FromRole="Staff" ToRole="Notice" />
+          <NavigationProperty Name="NoticeReceivers" Relationship="ApartmentManagementModel.FK_NoticeReceiver_Staff" FromRole="Staff" ToRole="NoticeReceiver" />
         </EntityType>
         <EntityType Name="StaffVacation">
           <Key>
@@ -276,6 +360,64 @@
             </Principal>
             <Dependent Role="StaffVacation">
               <PropertyRef Name="staffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="noticeId" />
+          </Key>
+          <Property Name="noticeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="senderId" Type="Int32" Nullable="false" />
+          <Property Name="sendDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Staff" Relationship="ApartmentManagementModel.FK_Notice_Staff" FromRole="Notice" ToRole="Staff" />
+          <NavigationProperty Name="NoticeReceivers" Relationship="ApartmentManagementModel.FK_NoticeReceiver_Notice" FromRole="Notice" ToRole="NoticeReceiver" />
+        </EntityType>
+        <EntityType Name="NoticeReceiver">
+          <Key>
+            <PropertyRef Name="nrId" />
+          </Key>
+          <Property Name="nrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="noticeId" Type="Int32" Nullable="false" />
+          <Property Name="receiverId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Notice" Relationship="ApartmentManagementModel.FK_NoticeReceiver_Notice" FromRole="NoticeReceiver" ToRole="Notice" />
+          <NavigationProperty Name="Staff" Relationship="ApartmentManagementModel.FK_NoticeReceiver_Staff" FromRole="NoticeReceiver" ToRole="Staff" />
+          <Property Name="isRead" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Notice_Staff">
+          <End Type="ApartmentManagementModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="ApartmentManagementModel.Notice" Role="Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="Notice">
+              <PropertyRef Name="senderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NoticeReceiver_Notice">
+          <End Type="ApartmentManagementModel.Notice" Role="Notice" Multiplicity="1" />
+          <End Type="ApartmentManagementModel.NoticeReceiver" Role="NoticeReceiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notice">
+              <PropertyRef Name="noticeId" />
+            </Principal>
+            <Dependent Role="NoticeReceiver">
+              <PropertyRef Name="noticeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NoticeReceiver_Staff">
+          <End Type="ApartmentManagementModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="ApartmentManagementModel.NoticeReceiver" Role="NoticeReceiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffId" />
+            </Principal>
+            <Dependent Role="NoticeReceiver">
+              <PropertyRef Name="receiverId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -347,6 +489,26 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="USP_Login" FunctionName="ApartmentManagementModel.Store.USP_Login" />
+          <EntitySetMapping Name="Notices">
+            <EntityTypeMapping TypeName="ApartmentManagementModel.Notice">
+              <MappingFragment StoreEntitySet="Notice">
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+                <ScalarProperty Name="senderId" ColumnName="senderId" />
+                <ScalarProperty Name="noticeId" ColumnName="noticeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NoticeReceivers">
+            <EntityTypeMapping TypeName="ApartmentManagementModel.NoticeReceiver">
+              <MappingFragment StoreEntitySet="NoticeReceiver">
+                <ScalarProperty Name="isRead" ColumnName="isRead" />
+                <ScalarProperty Name="receiverId" ColumnName="receiverId" />
+                <ScalarProperty Name="noticeId" ColumnName="noticeId" />
+                <ScalarProperty Name="nrId" ColumnName="nrId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

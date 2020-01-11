@@ -72,6 +72,7 @@ BEGIN
 				@password = N'employee',
 				@response = @response OUTPUT
 END
+select @response
 GO
 
 DECLARE @response smallint, @isManager smallint
@@ -79,4 +80,6 @@ EXEC dbo.USP_Login @username = N'1', @password = N'1'
 SELECT @@ROWCOUNT
 GO
 
-select * from Login
+select * from NoticeReceiver  where receiverId = 15
+
+select * from Notice where noticeId IN ( select noticeId from NoticeReceiver where receiverId = 15)

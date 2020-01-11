@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace StaffManagement.Model
 {

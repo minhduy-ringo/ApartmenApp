@@ -28,12 +28,13 @@ namespace StaffManagement.Pages.Manager
             LoadData();
         }
         public async void LoadData()
-        {
+        {  
             using (var client = new HttpClient())
             {
-                // sv ip: 172.29.64.131
+                int key = ((Model.Staff)this.BindingContext).complexId;
+                int exclude = ((Model.Staff)this.BindingContext).staffId;
                 var ip = Application.Current.Properties["ip"];
-                var json = await client.GetStringAsync(ip + "/StaffApi/odata/Staffs");
+                var json = await client.GetStringAsync(ip + "/StaffApi/odata/Staffs/GetStaffsComplex?key="+ key + "&exclude=" + exclude);
                 this.oData = JsonConvert.DeserializeObject<OData_Staff>(json);
                 StaffList.ItemsSource = this.oData.StaffList;
             }

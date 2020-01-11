@@ -9,11 +9,16 @@
         <EntityTypeShape EntityType="ApartmentManagementModel.LeaveRequest" Width="1.5" PointX="5.25" PointY="1.25" />
         <EntityTypeShape EntityType="ApartmentManagementModel.Schedule" Width="1.5" PointX="5.25" PointY="4.375" />
         <EntityTypeShape EntityType="ApartmentManagementModel.Staff" Width="1.5" PointX="3" PointY="3.625" />
-        <EntityTypeShape EntityType="ApartmentManagementModel.StaffVacation" Width="1.5" PointX="5.25" PointY="7.625" />
+        <EntityTypeShape EntityType="ApartmentManagementModel.StaffVacation" Width="1.5" PointX="0.5" PointY="8.875" />
         <AssociationConnector Association="ApartmentManagementModel.FK_Staff_Department" />
         <AssociationConnector Association="ApartmentManagementModel.FK_LeaveRequest_Staff" />
         <AssociationConnector Association="ApartmentManagementModel.FK_Schedule_Staff" />
         <AssociationConnector Association="ApartmentManagementModel.FK_StaffVacation_Staff" />
+        <EntityTypeShape EntityType="ApartmentManagementModel.Notice" Width="1.5" PointX="5.875" PointY="9.75" />
+        <EntityTypeShape EntityType="ApartmentManagementModel.NoticeReceiver" Width="1.5" PointX="8.875" PointY="7.25" />
+        <AssociationConnector Association="ApartmentManagementModel.FK_Notice_Staff" />
+        <AssociationConnector Association="ApartmentManagementModel.FK_NoticeReceiver_Notice" />
+        <AssociationConnector Association="ApartmentManagementModel.FK_NoticeReceiver_Staff" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

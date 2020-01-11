@@ -216,6 +216,7 @@
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\LeaveRequestsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NoticesController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\StaffVacationsController.cs" />
@@ -226,6 +227,12 @@
       <DependentUpon>StaffApiModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LeaveRequest.cs">
+      <DependentUpon>StaffApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notice.cs">
+      <DependentUpon>StaffApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NoticeReceiver.cs">
       <DependentUpon>StaffApiModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Schedule.cs">

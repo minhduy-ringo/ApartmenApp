@@ -4,11 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="StaffManagement.Pages.Manager.mLeavePage"
-             Title="Nghỉ phép"
-             IconImageSource="icons8_leave_64.png"
+             x:Class="StaffManagement.Pages.Manager.TaskDetail.Detail"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="{DynamicResource PrimaryColor}"
-             NavigationPage.HasNavigationBar="False">
+             Title="Chi tiết">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"

@@ -19,11 +19,12 @@ namespace StaffApi
             builder.EntitySet<LeaveRequest>("LeaveRequests");
             builder.EntitySet<StaffVacation>("StaffVacations");
             builder.EntitySet<Schedule>("Schedules");
+            builder.EntitySet<Notice>("Notices");
 
-            var function = builder.Function("Login");
-            function.Returns<Staff>();
-            //function.Parameter<string>("User");
-            //function.Parameter<string>("Pass");
+            builder.EntityType<Staff>().Collection.Function("GetStaffsComplex").Returns<Staff>();
+            builder.EntityType<Notice>().Collection.Function("GetStaffNotices").Returns<Notice>();
+
+            var function = builder.Function("Login").Returns<Staff>();
             config.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
         }
     }

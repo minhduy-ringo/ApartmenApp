@@ -20,6 +20,8 @@ namespace StaffApi.Models
             this.LeaveRequests = new HashSet<LeaveRequest>();
             this.Schedules = new HashSet<Schedule>();
             this.StaffVacations = new HashSet<StaffVacation>();
+            this.Notices = new HashSet<Notice>();
+            this.NoticeReceivers = new HashSet<NoticeReceiver>();
         }
     
         public int staffId { get; set; }
@@ -41,5 +43,9 @@ namespace StaffApi.Models
         public virtual ICollection<Schedule> Schedules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StaffVacation> StaffVacations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notice> Notices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NoticeReceiver> NoticeReceivers { get; set; }
     }
 }

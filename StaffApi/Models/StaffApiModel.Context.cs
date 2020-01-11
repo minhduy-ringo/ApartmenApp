@@ -32,6 +32,8 @@ namespace StaffApi.Models
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<StaffVacation> StaffVacations { get; set; }
+        public virtual DbSet<Notice> Notices { get; set; }
+        public virtual DbSet<NoticeReceiver> NoticeReceivers { get; set; }
     
         public virtual ObjectResult<Staff> USP_Login(string username, string password)
         {

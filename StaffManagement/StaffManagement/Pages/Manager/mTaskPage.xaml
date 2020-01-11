@@ -4,13 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:model="clr-namespace:StaffManagement.Model"
+             xmlns:convert="clr-namespace:StaffManagement.Converter"
              mc:Ignorable="d"
              x:Class="StaffManagement.Pages.Manager.mTaskPage"
              NavigationPage.HasNavigationBar="False"
              Title="Công việc"
              IconImageSource="icons8_task_50.png"
              BackgroundColor="{DynamicResource PrimaryColor}">
-
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:TaskStatusConverter x:Key="StatusConvert"/>
+            <convert:TaskTypeConverter x:Key="TypeConvert"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout Spacing="10" Margin="10,10,10,0">
             <Grid ColumnSpacing="10" HeightRequest="70">
@@ -20,17 +28,35 @@
                 </Grid.ColumnDefinitions>
                 <Frame Grid.Column="0" BackgroundColor="Transparent" BorderColor="White" CornerRadius="10" HasShadow="True" Padding="0">
                     <Picker x:Name="type_picker" TextColor="{DynamicResource TextColor}"
-                            BackgroundColor="Transparent" FontSize="Body" Title="Loại" TitleColor="{DynamicResource TextColor}"/>
+                            BackgroundColor="Transparent" FontSize="Body" Title="Loại" TitleColor="{DynamicResource TextColor}"
+                            SelectedIndexChanged="type_picker_SelectedIndexChanged"/>
                 </Frame>
                 <Frame Grid.Column="1" BackgroundColor="Transparent" BorderColor="White" CornerRadius="10" HasShadow="True" Padding="0">
                     <Picker x:Name="status_picker" TextColor="{DynamicResource TextColor}"
-                            BackgroundColor="Transparent" FontSize="Body" Title="Trạng thái" TitleColor="{DynamicResource TextColor}"/>
+                            BackgroundColor="Transparent" FontSize="Body" Title="Trạng thái" TitleColor="{DynamicResource TextColor}"
+                            SelectedIndexChanged="status_picker_SelectedIndexChanged"/>
                 </Frame>
             </Grid>
-            <ListView x:Name="TaskViewList" BackgroundColor="Transparent" HasUnevenRows="True" SeparatorVisibility="Default" Margin="15,5,15,0">
+            <ListView x:Name="TaskViewList" BackgroundColor="{DynamicResource PrimaryColor}"
+                      ItemSelected="TaskViewList_ItemSelected" RowHeight="70" SeparatorVisibility="Default" SeparatorColor="White">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Tapped="ViewCell_Tapped">
+                        <ViewCell>
+                            <Grid ColumnSpacing="5" Padding="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="190"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding taskName}" TextColor="{DynamicResource TextColor}" 
+                                       FontSize="Body" LineBreakMode="NoWrap" HorizontalTextAlignment="Start" 
+                                       VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="1" Text="{Binding taskType, Converter={StaticResource TypeConvert}}}" 
+                                       TextColor="{DynamicResource TextColor}" FontSize="Body" LineBreakMode="WordWrap" 
+                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

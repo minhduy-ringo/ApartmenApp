@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using System.Web.Http.OData;
-using System.Web.Http.OData.Routing;
+using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNet.OData;
 using TaskApi.Models;
 using Task = TaskApi.Models.Task;
 
@@ -31,6 +31,11 @@ namespace TaskApi.Controllers
     {
         private TaskContext db = new TaskContext();
 
+        [HttpGet]
+        public IQueryable<Task> Tasks(int complex)
+        {
+            return db.Tasks.Where(task => task.complexId == complex);
+        }
         // GET: odata/Tasks
         [EnableQuery]
         public IQueryable<Task> GetTasks()
@@ -48,8 +53,6 @@ namespace TaskApi.Controllers
         // PUT: odata/Tasks(5)
         public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<Task> patch)
         {
-            Validate(patch.GetEntity());
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -100,8 +103,6 @@ namespace TaskApi.Controllers
         [AcceptVerbs("PATCH", "MERGE")]
         public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Task> patch)
         {
-            Validate(patch.GetEntity());
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

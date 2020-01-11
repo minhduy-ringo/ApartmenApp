@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:convert="clr-namespace:StaffManagement.Converter"
+             mc:Ignorable="d"
+             x:Class="StaffManagement.Pages.Manager.TaskDetail.Overview"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource PrimaryColor}"
+             Title="Thông tin">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:TaskStatusConverter x:Key="StatusConvert"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Margin="10,10,10,0" Spacing="50">
+            <Frame CornerRadius="15" HeightRequest="80" BackgroundColor="{DynamicResource IconBackground}" Padding="10">
+                <Grid Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding taskName}" TextColor="{DynamicResource TextColor}" FontSize="Body" VerticalTextAlignment="Center"  VerticalOptions="CenterAndExpand" Grid.Row="0" FontAttributes="Bold"/>
+                    <Grid Grid.Row="1" Padding="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding startDate}" TextColor="{DynamicResource TextColor}" FontSize="Small" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="{Binding endDate}" TextColor="{DynamicResource TextColor}" FontSize="Small" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </Frame>
+            <Label Text="{Binding description}" TextColor="{DynamicResource TextColor}" FontSize="Body" LineBreakMode="WordWrap"/>
+            <Button x:Name="ConfirmButton" Text="{Binding taskStatus,Converter={StaticResource StatusConvert}}" BackgroundColor="Transparent" BorderColor="{DynamicResource IconBackground}" CornerRadius="15" TextColor="{DynamicResource TextColor}" Clicked="Button_Clicked"
+                    BorderWidth="1"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

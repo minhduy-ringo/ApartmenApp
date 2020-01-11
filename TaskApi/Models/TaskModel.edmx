@@ -10,6 +10,7 @@
             <PropertyRef Name="taskId" />
           </Key>
           <Property Name="taskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taskName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="taskType" Type="smallint" Nullable="false" />
           <Property Name="taskStatus" Type="smallint" Nullable="false" />
           <Property Name="priority" Type="smallint" Nullable="false" />
@@ -75,6 +76,7 @@
           <Property Name="description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="TaskStaffs" Relationship="ApartmentManagementModel.FK_TaskStaff_Task" FromRole="Task" ToRole="TaskStaff" />
+          <Property Name="taskName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TaskStaff">
           <Key>
@@ -106,6 +108,7 @@
         <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="ApartmentManagementModel.Task">
               <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="taskName" ColumnName="taskName" />
                 <ScalarProperty Name="cost" ColumnName="cost" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="endDate" ColumnName="endDate" />

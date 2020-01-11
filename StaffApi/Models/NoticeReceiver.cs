@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TaskApi.Models
+namespace StaffApi.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
-    public partial class TaskStaff
+    public partial class NoticeReceiver
     {
-        [Key]
-        public int taskId { get; set; }
-        [Key]
-        public int staffId { get; set; }
+        public int nrId { get; set; }
+        public int noticeId { get; set; }
+        public int receiverId { get; set; }
+        public bool isRead { get; set; }
     
-        public virtual Task Task { get; set; }
+        public virtual Notice Notice { get; set; }
+        public virtual Staff Staff { get; set; }
     }
 }

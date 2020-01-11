@@ -16,7 +16,7 @@ namespace StaffManagement
         protected override void OnStart()
         {
             // Handle when your app starts
-            Application.Current.Properties["ip"] = "http://192.168.1.107:8055";
+            Application.Current.Properties["ip"] = "http://192.168.1.105:8055";
         }
 
         protected override void OnSleep()

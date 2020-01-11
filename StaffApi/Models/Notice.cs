@@ -7,32 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TaskApi.Models
+namespace StaffApi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Task
+    public partial class Notice
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Task()
+        public Notice()
         {
-            this.TaskStaffs = new HashSet<TaskStaff>();
+            this.NoticeReceivers = new HashSet<NoticeReceiver>();
         }
     
-        public int taskId { get; set; }
-        public short taskType { get; set; }
-        public short taskStatus { get; set; }
-        public short priority { get; set; }
-        public short complexId { get; set; }
-        public short buildingId { get; set; }
-        public System.DateTime startDate { get; set; }
-        public Nullable<System.DateTime> endDate { get; set; }
-        public string description { get; set; }
-        public decimal cost { get; set; }
-        public string taskName { get; set; }
+        public int noticeId { get; set; }
+        public int senderId { get; set; }
+        public System.DateTime sendDate { get; set; }
+        public string message { get; set; }
     
+        public virtual Staff Staff { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TaskStaff> TaskStaffs { get; set; }
+        public virtual ICollection<NoticeReceiver> NoticeReceivers { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData;
 using StaffApi.Models;
 
@@ -22,50 +23,56 @@ namespace StaffApi.Controllers
     using System.Web.Http.OData.Extensions;
     using StaffApi.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Staff>("Staffs");
-    builder.EntitySet<Department>("Departments"); 
-    builder.EntitySet<LeaveRequest>("LeaveRequests"); 
-    builder.EntitySet<Schedule>("Schedules"); 
-    builder.EntitySet<StaffVacation>("StaffVacations"); 
+    builder.EntitySet<Notice>("Notices");
+    builder.EntitySet<Staff>("Staffs"); 
+    builder.EntitySet<NoticeReceiver>("NoticeReceivers"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-    public class StaffsController : ODataController
+    public class NoticesController : ODataController
     {
         private StaffContext db = new StaffContext();
 
         [HttpGet]
-        public IQueryable<Staff> GetStaffsComplex(int key, int exclude)
+        public IQueryable<Notice> GetStaffNotices(int userId)
         {
-            return db.Staffs.Where(staff => staff.complexId == key && staff.staffId != exclude);
+            IQueryable<NoticeReceiver> list = db.NoticeReceivers.Where(d => d.receiverId == userId);
+            IQueryable<Notice> list2 = Enumerable.Empty<Notice>().AsQueryable();
+            foreach (var a in list)
+            {
+                var temp = db.Notices.First(d => d.noticeId == a.noticeId);
+                list2.ToList().Add(temp);
+            }
+            return list2.AsQueryable();
         }
-        // GET: odata/Staffs
+        // GET: odata/Notices
         [EnableQuery]
-        public IQueryable<Staff> GetStaffs()
+        public IQueryable<Notice> GetNotices()
         {
-            return db.Staffs;
-        }
-        // GET: odata/Staffs(5)
-        [EnableQuery]
-        public SingleResult<Staff> GetStaff([FromODataUri] int key)
-        {
-            return SingleResult.Create(db.Staffs.Where(staff => staff.staffId == key));
+            return db.Notices;
         }
 
-        // PUT: odata/Staffs(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<Staff> patch)
+        // GET: odata/Notices(5)
+        [EnableQuery]
+        public SingleResult<Notice> GetNotice([FromODataUri] int key)
+        {
+            return SingleResult.Create(db.Notices.Where(notice => notice.noticeId == key));
+        }
+
+        // PUT: odata/Notices(5)
+        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<Notice> patch)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Staff staff = await db.Staffs.FindAsync(key);
-            if (staff == null)
+            Notice notice = await db.Notices.FindAsync(key);
+            if (notice == null)
             {
                 return NotFound();
             }
 
-            patch.Put(staff);
+            patch.Put(notice);
 
             try
             {
@@ -73,7 +80,7 @@ namespace StaffApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StaffExists(key))
+                if (!NoticeExists(key))
                 {
                     return NotFound();
                 }
@@ -83,39 +90,39 @@ namespace StaffApi.Controllers
                 }
             }
 
-            return Updated(staff);
+            return Updated(notice);
         }
 
-        // POST: odata/Staffs
-        public async Task<IHttpActionResult> Post(Staff staff)
+        // POST: odata/Notices
+        public async Task<IHttpActionResult> Post(Notice notice)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Staffs.Add(staff);
+            db.Notices.Add(notice);
             await db.SaveChangesAsync();
 
-            return Created(staff);
+            return Created(notice);
         }
 
-        // PATCH: odata/Staffs(5)
+        // PATCH: odata/Notices(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Staff> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Notice> patch)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Staff staff = await db.Staffs.FindAsync(key);
-            if (staff == null)
+            Notice notice = await db.Notices.FindAsync(key);
+            if (notice == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(staff);
+            patch.Patch(notice);
 
             try
             {
@@ -123,7 +130,7 @@ namespace StaffApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StaffExists(key))
+                if (!NoticeExists(key))
                 {
                     return NotFound();
                 }
@@ -133,50 +140,36 @@ namespace StaffApi.Controllers
                 }
             }
 
-            return Updated(staff);
+            return Updated(notice);
         }
 
-        // DELETE: odata/Staffs(5)
+        // DELETE: odata/Notices(5)
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Staff staff = await db.Staffs.FindAsync(key);
-            if (staff == null)
+            Notice notice = await db.Notices.FindAsync(key);
+            if (notice == null)
             {
                 return NotFound();
             }
 
-            db.Staffs.Remove(staff);
+            db.Notices.Remove(notice);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: odata/Staffs(5)/Department
+        // GET: odata/Notices(5)/Staff
         [EnableQuery]
-        public SingleResult<Department> GetDepartment([FromODataUri] int key)
+        public SingleResult<Staff> GetStaff([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Staffs.Where(m => m.staffId == key).Select(m => m.Department));
+            return SingleResult.Create(db.Notices.Where(m => m.noticeId == key).Select(m => m.Staff));
         }
 
-        // GET: odata/Staffs(5)/LeaveRequests
+        // GET: odata/Notices(5)/NoticeReceivers
         [EnableQuery]
-        public IQueryable<LeaveRequest> GetLeaveRequests([FromODataUri] int key)
+        public IQueryable<NoticeReceiver> GetNoticeReceivers([FromODataUri] int key)
         {
-            return db.Staffs.Where(m => m.staffId == key).SelectMany(m => m.LeaveRequests);
-        }
-
-        // GET: odata/Staffs(5)/Schedules
-        [EnableQuery]
-        public IQueryable<Schedule> GetSchedules([FromODataUri] int key)
-        {
-            return db.Staffs.Where(m => m.staffId == key).SelectMany(m => m.Schedules);
-        }
-
-        // GET: odata/Staffs(5)/StaffVacations
-        [EnableQuery]
-        public IQueryable<StaffVacation> GetStaffVacations([FromODataUri] int key)
-        {
-            return db.Staffs.Where(m => m.staffId == key).SelectMany(m => m.StaffVacations);
+            return db.Notices.Where(m => m.noticeId == key).SelectMany(m => m.NoticeReceivers);
         }
 
         protected override void Dispose(bool disposing)
@@ -188,9 +181,9 @@ namespace StaffApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool StaffExists(int key)
+        private bool NoticeExists(int key)
         {
-            return db.Staffs.Count(e => e.staffId == key) > 0;
+            return db.Notices.Count(e => e.noticeId == key) > 0;
         }
     }
 }

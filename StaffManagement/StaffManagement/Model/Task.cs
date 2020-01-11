@@ -19,13 +19,14 @@ namespace StaffManagement.Model
         public Nullable<System.DateTime> endDate { get; set; }
         public string description { get; set; }
         public decimal cost { get; set; }
+        public string taskName { get; set; }
     }
     class Odata_Task
     {
         [JsonProperty("odata.metadata")]
         public string Metadata { get; set; }
         [JsonProperty("value")]
-        public List<Staff> TaskList { get; set; }
+        public List<Task> TaskList { get; set; }
     }
     public class TaskStatusConvert : IValueConverter
     {

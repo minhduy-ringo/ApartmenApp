@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converter="clr-namespace:StaffManagement.Converter"
              mc:Ignorable="d"
              x:Class="StaffManagement.Pages.PersonInfo"
              BackgroundColor="{DynamicResource PrimaryColor}"
              NavigationPage.HasNavigationBar="False">
-    <NavigationPage.TitleView>
-        <Label TextColor="{DynamicResource PrimaryColor}" FontSize="Title"/>
-    </NavigationPage.TitleView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:DepartmentConverter x:Key="DepartmentConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout>
             <Frame Margin="0" BackgroundColor="{DynamicResource NavigationBar}">
@@ -18,7 +23,7 @@
                         <Image Source="icons8_person_female_48.png" Scale="0.7"/>
                     </Frame>
                     <Label Text="{Binding name}" TextColor="{DynamicResource TextColor}" FontSize="Body" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Label Text="{Binding departmentId}" TextColor="{DynamicResource TextColor}" FontSize="Small" HorizontalTextAlignment="Center"/>
+                    <Label Text="{Binding departmentId, Converter={StaticResource DepartmentConverter}}" TextColor="{DynamicResource TextColor}" FontSize="Small" HorizontalTextAlignment="Center"/>
                     <Grid ColumnSpacing="10" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
